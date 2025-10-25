@@ -5,6 +5,22 @@ Proyek ini dibangun dari awal menggunakan **Laravel 12** dan **Tailwind CSS v4**
 
 ---
 
+## 🚀 Fitur Utama (Roadmap MVP)
+
+| Status | Fitur | Keterangan |
+|:--:|:--|:--|
+| ✅ | Setup Laravel 12 + Tailwind CSS v4 | Inisialisasi proyek dasar, Vite aktif, environment stabil |
+| ✅ | Auth 2 role (HR & Karyawan) | Registrasi, login, dan middleware pembeda dashboard |
+| 🔄 | Dashboard HR & Karyawan | Tampilan utama berbeda sesuai role pengguna |
+| ⏳ | Pengajuan cuti (aktif) | Form pengajuan dengan tanggal, alasan (teks), dan bukti opsional upload |
+| ⏳ | Jenis form lain (izin, lembur, pinjam fasilitas) | Ditampilkan tapi belum aktif — diberi label “Segera Hadir” |
+| ⏳ | Karyawan pengganti | Kolom teks area manual untuk nama karyawan pengganti |
+| ⏳ | Approval HR & Manajer Divisi | HR dan Manajer menandatangani form cuti (kolom tanda tangan basah di PDF) |
+| ⏳ | Cetak PDF surat cuti | Export surat cuti resmi dengan tanda tangan dan status |
+| ⏳ | Dashboard statistik HR | HR dapat melihat rekap cuti, jumlah pengajuan, dan status persetujuan |
+
+---
+
 ## ⚙️ Setup Awal
 
 ### 1️⃣ Instalasi Laravel
@@ -82,7 +98,22 @@ Jika teks hijau besar muncul, Tailwind berhasil terpasang.
 | PHP | 8.2.24 | Sesuai requirement Laravel 12 |
 | Node.js | 20.19.1 | Build tools (Vite + Tailwind) |
 | Tailwind CSS | 4.x | Styling modern berbasis utility |
-| Database | MySQL / MariaDB | Disesuaikan dengan server Hestia Ekafarm |
+| Database | MySQL / MariaDB | Disesuaikan dengan server Ekafarm |
+
+---
+
+## 🧾 CHANGELOG
+
+Lihat file [`CHANGELOG.md`](./CHANGELOG.md) untuk daftar lengkap perubahan versi.
+
+---
+
+## 👨‍💻 Pengembang
+
+**Wahyu Mahmudiyanto**  
+SEO Specialist & Web Developer at [Ekafarm](https://ekafarm.com)  
+📍 Yogyakarta, Indonesia  
+🌐 [wahyumahmudi.com](https://wahyumahmudi.com)
 
 ---
 
