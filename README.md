@@ -11,8 +11,8 @@ Proyek ini dibangun dari awal menggunakan **Laravel 12** dan **Tailwind CSS v4**
 |:--:|:--|:--|
 | ✅ | Setup Laravel 12 + Tailwind CSS v4 | Inisialisasi proyek dasar, Vite aktif, environment stabil |
 | ✅ | Auth 2 role (HR & Karyawan) | Registrasi, login, dan middleware pembeda dashboard |
-| 🔄 | Dashboard HR & Karyawan | Tampilan utama berbeda sesuai role pengguna |
-| ⏳ | Pengajuan cuti (aktif) | Form pengajuan dengan tanggal, alasan (teks), dan bukti opsional upload |
+| ✅ | Dashboard HR & Karyawan | Tampilan utama berbeda sesuai role pengguna |
+| 🔄 | Pengajuan cuti (aktif) | Form pengajuan dengan tanggal, alasan (teks), dan bukti opsional upload |
 | ⏳ | Jenis form lain (izin, lembur, pinjam fasilitas) | Ditampilkan tapi belum aktif — diberi label “Segera Hadir” |
 | ⏳ | Karyawan pengganti | Kolom teks area manual untuk nama karyawan pengganti |
 | ⏳ | Approval HR & Manajer Divisi | HR dan Manajer menandatangani form cuti (kolom tanda tangan basah di PDF) |

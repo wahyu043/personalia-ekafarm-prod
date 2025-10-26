@@ -1,5 +1,77 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.3.0] — 26 Oktober 2025
+### 🚀 Fitur Baru
+- Penyelesaian penuh sistem **Autentikasi & Role**:
+  - Login & register berbasis **Laravel Breeze** berjalan stabil.
+  - **RoleMiddleware** aktif untuk membedakan akses `hr` dan `karyawan`.
+  - Otomatis redirect ke dashboard sesuai role:
+    - HR → `/hr/dashboard`
+    - Karyawan → `/karyawan/dashboard`
+  - **Default role** otomatis diatur menjadi `karyawan` saat registrasi.
+- Penambahan **layout dashboard terpisah** antara HR dan Karyawan.
+- Perbaikan **layout Breeze** agar slot konten muncul normal (hilangnya teks “Selamat Datang” terselesaikan).
+- Penonaktifan sementara link **Profile** di navbar untuk menghindari error `Route [profile.edit] not defined`.
+
+---
+
+### 🧱 Perubahan Struktural
+- Penyempurnaan konfigurasi middleware di `bootstrap/app.php`:
+
+  ```php
+  $middleware->alias([
+      'role' => \App\Http\Middleware\RoleMiddleware::class,
+  ]);
+  ```
+
+- Penambahan `role` pada `$fillable` model `User` agar mass assignment berfungsi.
+- Update file `app/Http/Controllers/Auth/RegisteredUserController.php`:
+
+  ```php
+  $user = User::create([
+      'name' => $request->name,
+      'email' => $request->email,
+      'password' => Hash::make($request->password),
+      'role' => 'karyawan', // default role untuk user baru
+  ]);
+  ```
+
+- Pembaruan rute universal `/dashboard` untuk redirect dinamis sesuai role.
+- Pembaruan struktur folder view:
+
+  ```text
+  resources/views/
+  ├── hr/dashboard.blade.php
+  ├── karyawan/dashboard.blade.php
+  ├── components/app-layout.blade.php
+  └── layouts/app.blade.php
+  ```
+
+---
+
+### 🧩 Fixes
+- ✅ Mengatasi error `Route [profile.edit] not defined`.
+- ✅ Mengatasi error `Route [dashboard] not defined`.
+- ✅ Menormalkan layout slot yang sempat menyebabkan konten tidak tampil.
+- ✅ Menyelaraskan navigasi Breeze dengan sistem role baru.
+
+---
+
+### 📈 Progress Proyek
+| Tahap | Status |
+|--------|:--:|
+| Setup Laravel 12 + Tailwind v4 | ✅ |
+| Auth 2 Role (HR & Karyawan) | ✅ |
+| Pengajuan Cuti | ⏳ |
+| Approval HR | ⏳ |
+| Cetak PDF Surat Cuti | ⏳ |
+| Dashboard Statistik | ⏳ |
+
+> _Milestone besar: Sistem autentikasi dan pemisahan dashboard berdasarkan role kini sepenuhnya stabil._  
+> _Next target: Form Pengajuan Cuti (MVP)._ 🏗️
+
+---
+
 ## [v0.2.0] — 25 Oktober 2025
 ### ✨ Fitur Baru
 - Integrasi **Laravel Breeze** sebagai sistem autentikasi utama.
@@ -40,11 +112,11 @@ resources/views/
 └── layouts/
     ├── app.blade.php
     └── navigation.blade.php
-
+```
 ---
 
-`Status`: Stable milestone setelah debugging Breeze & layout conflict
-`Next Target`: Form Pengajuan Cuti (MVP) 🚀
+**Status**: Stable milestone setelah debugging Breeze & layout conflict
+**Next Target**: Form Pengajuan Cuti (MVP) 🚀
 
 ---
 
