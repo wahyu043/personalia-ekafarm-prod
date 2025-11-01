@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Dark-mode helpers (kontras) */
+@layer utilities {
+    .dark-surface {
+        @apply dark:bg-[#0f172a] dark:text-gray-100;
+    }
+
+    /* slate-900-ish */
+    .dark-panel {
+        @apply dark:bg-[#111827] dark:border dark:border-slate-700;
+    }
+
+    .dark-soft {
+        @apply dark:bg-[#0b1220];
+    }
+
+    /* untuk area luar */
+    .dark-divider {
+        @apply dark:border-slate-700;
+    }
+
+    .dark-heading {
+        @apply dark:text-gray-100;
+    }
+
+    .dark-muted {
+        @apply dark:text-slate-300;
+    }
+
+    .dark-hover {
+        @apply dark:hover:bg-slate-800;
+    }
+}

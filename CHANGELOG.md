@@ -1,5 +1,105 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.4.3] — 1–2 November 2025
+### 🎨 UI/UX Consolidation
+- Refactor layout global (`x-app-layout`) agar seragam di HR & Karyawan.
+- Implementasi palet warna brand Ekafarm:
+  - Hijau tua `#4c6647`, hijau daun `#6da54e`, hijau cerah `#9dcd5a`, kuning `#e1d454`.
+- Perapian dark mode otomatis, penghapusan tombol manual *dark toggle*.
+- Border tabel adaptif (`border-black/70 dark:border-white/80`).
+- Hover tabel lembut `hover:bg-[#9dcd5a]/10`.
+
+### 🧩 Komponen Baru
+- `components/confirm-modal.blade.php` → modal konfirmasi dengan animasi `x-transition`.
+- `components/alert.blade.php` → flash global layout.
+- `partials/dashboard-summary.blade.php` → ringkasan statistik cuti.
+- Tombol `Simpan/Batal` diseragamkan gaya warnanya (hijau daun Ekafarm).
+
+### 📊 Dashboard HR & Karyawan
+- Penyatuan gaya tabel dan badge status (`Menunggu`, `Disetujui`, `Ditolak`).
+- Warna status adaptif mode gelap (dark:bg-*/20 + border lembut).
+- Penambahan `transition` di seluruh elemen interaktif (hover, modal).
+
+### ⚙️ Struktural
+- Penataan ulang `resources/views/components/` dan layout global.
+- Flash message hanya dirender sekali dari layout utama.
+- Persiapan menuju tahap **v0.4.4 — Konsistensi & Styling Global.**
+
+> _Milestone: UI/UX internal konsisten dan siap tahap polish global styling._ 🚀
+
+## [v0.4.2] — 26 Oktober 2025
+### ✨ Fitur Baru
+- HR dapat melihat daftar seluruh pengajuan cuti dari semua karyawan.
+- HR dapat mengubah status pengajuan menjadi **Menunggu**, **Disetujui**, atau **Ditolak**.
+- Karyawan dapat melihat daftar pengajuan cuti miliknya di halaman **Daftar Cuti**.
+- Sistem role-based route sudah berjalan untuk `karyawan` dan `hr`.
+
+### 🎨 UI & UX
+- Penambahan dropdown status yang rapi dengan jarak aman antara teks dan ikon panah.
+- Penataan ulang tabel daftar cuti agar responsif dan mudah dibaca.
+- Penambahan notifikasi flash message di dashboard karyawan setelah pengajuan berhasil dikirim.
+
+### 🧱 Struktur Baru
+```text
+resources/views/
+├── hr/
+│   └── cuti/
+│       └── index.blade.php
+└── karyawan/
+    └── cuti/
+        ├── create.blade.php
+        └── index.blade.php
+```
+
+### 📈 Status Proyek
+| Fitur | Status |
+|-------|:------:|
+| Pengajuan Cuti | ✅ |
+| Daftar Cuti (Karyawan) | ✅ |
+| Approval HR | ✅ |
+| Cetak PDF | ⏳ (Next milestone) |
+
+> _Milestone: Sistem cuti internal (input → review → approval) resmi stabil dan siap menuju tahap ekspor PDF._ 🚀
+
+
+---
+
+## [v0.4.1] — 26 Oktober 2025
+### ✨ Fitur Baru
+- Penambahan halaman **Daftar Pengajuan Cuti Saya** untuk karyawan.
+- Data pengajuan otomatis ditarik dari tabel `cuti` berdasarkan `user_id`.
+- Menampilkan status pengajuan (Menunggu / Disetujui / Ditolak) dengan warna berbeda.
+
+### 🎨 UI & UX
+- Penambahan tabel dinamis dengan Tailwind.
+- Tombol **+ Ajukan Cuti Baru** di bagian bawah daftar.
+
+---
+
+## [v0.4.0] — 26 Oktober 2025
+### 🚀 Fitur Baru
+- Fitur **Pengajuan Cuti (MVP)** aktif:
+  - Form input tanggal mulai, tanggal selesai, alasan, bukti (opsional), dan karyawan pengganti.
+  - Data tersimpan di tabel `cuti` dengan status default **menunggu**.
+  - Validasi form berjalan penuh.
+  - Upload file bukti otomatis tersimpan di folder `storage/app/public/bukti_cuti/`.
+
+### 🧱 Perubahan Struktural
+- Pembuatan tabel baru `cuti` (relasi ke `users`).
+- Penambahan model `Cuti` dan controller `CutiController`.
+- Pembuatan view `resources/views/karyawan/cuti/create.blade.php`.
+
+### ✅ Flow Lengkap
+| Langkah | Hasil |
+|----------|--------|
+| Karyawan isi form cuti | Data tersimpan ke DB |
+| Redirect ke dashboard | Flash message muncul |
+| HR login | (Tahap berikutnya) |
+
+> _Milestone besar: sistem pengajuan cuti pertama versi Laravel 12 + Tailwind v4 berhasil berjalan penuh._
+
+---
+
 ## [v0.3.0] — 26 Oktober 2025
 ### 🚀 Fitur Baru
 - Penyelesaian penuh sistem **Autentikasi & Role**:
