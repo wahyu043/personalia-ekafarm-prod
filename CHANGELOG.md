@@ -1,5 +1,69 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.4.5] — 2–3 November 2025
+### 🧑‍💼 HR Dashboard & Global Table Style
+
+#### 🚀 Fitur Baru
+- **Dashboard HR aktif** di `/hr/dashboard`
+  - Menampilkan *ringkasan global*: total karyawan, total cuti, menunggu, disetujui, ditolak.
+  - Data dinamis ditarik dari model `User` dan `Cuti`.
+  - Menampilkan tabel *“Pengajuan Cuti Terbaru”* (limit 5 data terakhir dari semua karyawan).
+- **Komponen baru:** `resources/views/components/card.blade.php`  
+  digunakan untuk menampilkan statistik singkat di dashboard HR.
+
+---
+
+#### 🎨 UI/UX Enhancement
+- **Greeting personal**:
+  > “Selamat datang, [nama HR] 👋 – Semoga harimu produktif!”
+- Konsistensi warna:
+  - Mode terang → `bg-white` + teks hijau tua `#4c6647`
+  - Mode gelap → `bg-[#4c6647]/60` + teks putih penuh
+- **Warna status adaptif:**
+  - 🟡 `Menunggu` → kuning lembut  
+  - 🟢 `Disetujui` → hijau muda  
+  - 🔴 `Ditolak` → merah muda
+- **Hover lembut:**  
+  - Light → `hover:bg-[#9dcd5a]/10`  
+  - Dark → `dark:hover:bg-[#4c6647]/40`
+- Tabel pada dashboard kini seragam dengan tampilan `hr/cuti/index.blade.php` (gaya, border, dan tone warna identik).
+
+---
+
+#### 💅 Global Table Style Enhancement
+- Penambahan file `resources/css/global.css` untuk standarisasi tabel di seluruh aplikasi:
+  - `border-collapse: collapse` agar sel tabel rapat & rapi.
+  - Border luar **hilang otomatis** di mode gelap (`dark:border-transparent`).
+  - Pembatas kolom tetap aktif di mode terang (`border-gray-300`).
+  - Sudut luar tabel membulat lembut (`rounded-lg`).
+  - Hover baris hijau muda lembut di kedua mode tampilan.
+- Semua halaman kini otomatis mengikuti gaya tabel global tanpa styling manual.
+
+---
+
+#### ⚙️ Perubahan Struktural
+- Pembuatan controller baru: `HR/DashboardController.php`
+- Update `routes/web.php`:
+  ```php
+  Route::middleware(['auth', 'role:hr'])->group(function () {
+      Route::get('/hr/dashboard', [DashboardController::class, 'index'])->name('hr.dashboard');
+  });
+
+---
+
+### Refactor layout global x-app-layout:
+- Slot header dihapus (karena layout modern sudah pakai grid global).
+- Penyesuaian gaya warna agar seragam dengan brand Ekafarm.
+
+| Fitur                |        Status        |
+| -------------------- | :------------------: |
+| Dashboard HR         |           ✅          |
+| Global Table Styling |           ✅          |
+| CRUD Data Karyawan   | ⏳ (tahap berikutnya) |
+| Cetak PDF Surat Cuti |      ⏳ (v0.5.0)      |
+
+> _Milestone: Seluruh layout & tabel kini seragam, modern, dan siap ekspansi ke manajemen data karyawan._ 🚀
+
 ## [v0.4.4] — 2 November 2025
 ### 🎨 Konsistensi & Styling Global
 - Penyatuan tone warna antar halaman (Dashboard Karyawan & Daftar Cuti).

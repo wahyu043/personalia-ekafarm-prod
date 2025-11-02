@@ -188,3 +188,47 @@
     }
 
 }
+
+/* =======================================================
+   🌿 GLOBAL TABLE STYLE — Personalia Ekafarm PROD v0.4.5
+   ======================================================= */
+
+table {
+    border-collapse: collapse;
+    @apply min-w-full border border-gray-300 dark:border-transparent rounded-lg overflow-hidden transition-colors duration-200;
+}
+
+/* ====== HEADER ====== */
+thead {
+    @apply bg-gray-100 dark:bg-slate-900 uppercase border-b border-gray-300 dark:border-transparent;
+}
+
+thead th {
+    @apply px-4 py-3 text-center text-sm font-semibold text-gray-800 dark:text-gray-100 bg-[#f8f8ee] dark:bg-[#4c6647]/80 border border-gray-300 dark:border-[#9dcd5a]/40 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0 transition-colors duration-200;
+}
+
+/* ====== BODY ====== */
+tbody td {
+    @apply border border-gray-300 dark:border-[#9dcd5a]/40 p-2 text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-[#4c6647]/60 text-center transition-colors last:border-r-0;
+}
+
+/* Hover baris */
+tbody tr:hover {
+    @apply bg-[#9dcd5a]/10 dark:bg-[#4c6647]/40 transition-colors;
+}
+
+/* Sudut bawah lembut */
+tbody tr:last-child td:first-child {
+    @apply rounded-bl-lg;
+}
+
+tbody tr:last-child td:last-child {
+    @apply rounded-br-lg;
+}
+
+/* ====== RESPONSIVENESS & ANIMATION ====== */
+tbody,
+thead,
+table {
+    @apply transition-colors duration-200 ease-in-out;
+}
