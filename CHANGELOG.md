@@ -1,5 +1,27 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.4.4] — 2 November 2025
+### 🎨 Konsistensi & Styling Global
+- Penyatuan tone warna antar halaman (Dashboard Karyawan & Daftar Cuti).
+- Mode terang:
+  - Sidebar hijau daun `#6da54e` dengan teks putih.
+  - Panel putih lembut dengan border abu.
+- Mode gelap:
+  - Sidebar mengikuti Breeze (gelap abu, teks putih).
+  - Panel dan tabel menggunakan hijau tua transparan `#4c6647/60–80` dengan border hijau muda `#9dcd5a/40`.
+- Penyesuaian tombol:
+  - Light mode: hijau daun `#6da54e` → hover hijau tua `#4c6647`.
+  - Dark mode: hijau muda `#9dcd5a` → hover hijau daun `#6da54e`.
+- Optimalisasi `global.css`:
+  - Penghapusan blok fine-tune lama.
+  - Penambahan aturan sidebar adaptif & harmonisasi tone panel.
+- Penyesuaian hierarki teks:
+  - Greeting hijau tua `#4c6647`.
+  - Nilai statistik putih agar selaras dengan tone panel.
+- Semua komponen kini responsif dan selaras di kedua mode tampilan.
+
+> _Milestone: UI/UX global stabil dan siap menuju tahap HR Dashboard (v0.4.5)._ 🚀
+
 ## [v0.4.3] — 1–2 November 2025
 ### 🎨 UI/UX Consolidation
 - Refactor layout global (`x-app-layout`) agar seragam di HR & Karyawan.

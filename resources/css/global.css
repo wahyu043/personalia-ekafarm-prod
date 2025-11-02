@@ -1,0 +1,190 @@
+/* ========================================================================
+   🌿 Personalia Ekafarm — Global Styling (v0.4.4)
+   ------------------------------------------------------------------------
+   ✅ Warna & font brand Ekafarm
+   ✅ Komponen dasar (button, card, badge)
+   ✅ Utilities tone baru (dark-mode fine-tune)
+   ======================================================================== */
+
+/* === Base Layer ========================================================= */
+@layer base {
+    html {
+        font-family: 'Nunito', system-ui, sans-serif;
+        background-color: #f8f8ee;
+        /* background lembut */
+        color: #1f2937;
+        /* teks abu tua */
+    }
+
+    @media (prefers-color-scheme: dark) {
+        html {
+            background-color: #111827;
+            color: #e5e7eb;
+        }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-semibold text-gray-900 dark:text-gray-100;
+    }
+
+    a {
+        @apply text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors;
+    }
+}
+
+/* === Components Layer ==================================================== */
+@layer components {
+
+    /* Tombol utama */
+    .btn-primary {
+        @apply inline-block px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 transition;
+    }
+
+    /* Kartu / panel */
+    .card {
+        @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm;
+    }
+
+    /* Badge status */
+    .badge {
+        @apply px-2 py-1 text-xs font-medium rounded-lg;
+    }
+
+    .badge-success {
+        @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300;
+    }
+
+    .badge-warning {
+        @apply bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300;
+    }
+
+    .badge-danger {
+        @apply bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300;
+    }
+}
+
+/* === Utilities Layer ===================================================== */
+@layer utilities {
+
+    /* Palet warna brand */
+    .text-brand-dark {
+        color: #4c6647;
+    }
+
+    .text-brand-leaf {
+        color: #6da54e;
+    }
+
+    .text-brand-light {
+        color: #9dcd5a;
+    }
+
+    .text-brand-yellow {
+        color: #e1d454;
+    }
+
+    .bg-brand-dark {
+        background-color: #4c6647;
+    }
+
+    .bg-brand-leaf {
+        background-color: #6da54e;
+    }
+
+    .bg-brand-light {
+        background-color: #9dcd5a;
+    }
+
+    .bg-brand-yellow {
+        background-color: #e1d454;
+    }
+
+    .border-brand-dark {
+        border-color: #4c6647;
+    }
+
+    .border-brand-leaf {
+        border-color: #6da54e;
+    }
+
+    .border-brand-light {
+        border-color: #9dcd5a;
+    }
+
+    .border-brand-yellow {
+        border-color: #e1d454;
+    }
+
+    /* Sidebar fix */
+    /* ===== Sidebar Adaptive — Ekafarm x Breeze ===== */
+
+    /* 🌤️ Light mode */
+    .sidebar {
+        background-color: #6da54e !important;
+        color: #ffffff !important;
+    }
+
+    .sidebar a,
+    .sidebar * {
+        color: #ffffff !important;
+        fill: #ffffff !important;
+    }
+
+    /* 🌙 Dark mode (ikuti Breeze background) */
+    @media (prefers-color-scheme: dark) {
+        .sidebar {
+            background-color: rgb(31 41 55) !important;
+            /* sedikit lebih terang dari konten */
+            color: #f8fafc !important;
+            /* putih lembut */
+        }
+
+        .sidebar a,
+        .sidebar * {
+            color: #f8fafc !important;
+            fill: #f8fafc !important;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+    }
+
+    /* ===== Panel / Card Tone Harmonization (Dark Mode) ===== */
+    @media (prefers-color-scheme: dark) {
+
+        .card,
+        .panel {
+            background-color: #1f2937 !important;
+            /* sedikit lebih terang dari sidebar */
+            border-color: #334155 !important;
+            /* halus, kontras ringan */
+            color: #f1f5f9 !important;
+            /* teks lembut */
+        }
+
+        .card-header,
+        .panel-header {
+            background-color: #243145 !important;
+            /* 1 tingkat lebih terang untuk header */
+            border-bottom: 1px solid #334155 !important;
+        }
+
+        .card-body,
+        .panel-body {
+            background-color: #1f2937 !important;
+        }
+
+        .card-footer,
+        .panel-footer {
+            border-top: 1px solid #334155 !important;
+            background-color: #1e293b !important;
+        }
+    }
+
+}

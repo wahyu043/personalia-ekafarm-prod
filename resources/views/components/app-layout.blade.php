@@ -26,7 +26,7 @@
                     </svg>
                 </button>
                 <img src="{{ asset('images/ekafarm-logo-clr-bg.png') }}" alt="Logo Ekafarm" class="h-8 w-auto">
-                <h1 class="text-lg font-semibold">Personalia Ekafarm</h1>
+                <h1 class="text-lg text-white font-semibold">Personalia Ekafarm</h1>
             </div>
 
             {{-- Right: User & Darkmode --}}
@@ -48,7 +48,8 @@
     <div class="flex flex-1 relative">
 
         {{-- SIDEBAR --}}
-        <aside id="sidebar" class="fixed md:static z-30 inset-y-0 left-0 w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-200 bg-[#6da54e] dark:bg-[#0f172a] dark:bg-gray-800 text-white min-h-screen py-6 px-4">
+        <aside id="sidebar" class="sidebar fixed md:static z-30 inset-y-0 left-0 w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-200
+           bg-[#6da54e] dark:bg-[#0f172a] text-white min-h-screen py-6 px-4">
             <ul class="space-y-2 text-sm">
                 <li><a href="{{ route('dashboard') }}" class="block py-2 px-3 rounded hover:bg-[#9dcd5a] dark:hover:bg-slate-800">🏠 Dashboard</a></li>
 
