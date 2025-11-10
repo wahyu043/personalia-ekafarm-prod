@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\HR\DashboardController;
-use App\Http\Controllers\HR\KaryawanController; // (disiapkan untuk v0.4.5 tahap 2)
+use App\Http\Controllers\HR\KaryawanController;
+use App\Http\Controllers\CutiPdfController;
 
 
 // ======================================================
@@ -71,8 +72,14 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
 
     // Reset Password Karyawan
     Route::post('/hr/karyawan/{id}/reset-password', [KaryawanController::class, 'resetPassword'])
-    ->name('hr.karyawan.resetPassword');
+        ->name('hr.karyawan.resetPassword');
 
+    // Export Form PDF
+
+    Route::middleware(['auth', 'role:hr'])->group(function () {
+        Route::get('/hr/cuti/{cuti}/pdf', [CutiPdfController::class, 'export'])
+            ->name('hr.cuti.pdf');
+    });
 });
 
 // ======================================================

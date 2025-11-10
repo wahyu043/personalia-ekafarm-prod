@@ -61,6 +61,7 @@ class CutiController extends Controller
         // tampilkan semua pengajuan cuti (untuk HR)
         $cuti = \App\Models\Cuti::with('user')->latest()->get();
 
+
         return view('hr.cuti.index', compact('cuti'));
     }
 

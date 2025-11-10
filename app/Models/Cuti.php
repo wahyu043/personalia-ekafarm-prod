@@ -9,7 +9,7 @@ class Cuti extends Model
 {
     use HasFactory;
 
-    protected $table = 'cuti'; // pastiin nama tabel benar
+    protected $table = 'cuti';
 
     protected $fillable = [
         'user_id',
@@ -20,10 +20,13 @@ class Cuti extends Model
         'bukti',
         'pengganti',
         'status',
+        'catatan_hr',
+        'ttd_manager',
+        'ttd_hr',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -1,5 +1,38 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.5.0] — 10 November 2025
+### 🧾 Final Layout Surat Cuti (PDF Formal + UI/UX Fix HR Table)
+
+#### ✨ Peningkatan Fitur
+- **Surat Cuti (PDF):**
+  - Penambahan **kotak “Karyawan Pengganti”** di bawah status pengajuan, lengkap dengan area tanda tangan manual.
+  - Penambahan **kotak “Catatan Manajer / SPV”** selebar margin halaman untuk penulisan manual di surat fisik.
+  - Perbaikan layout tanda tangan menjadi **1 baris sejajar** (Pemohon | HR | Manajer/SPV) menggunakan tabel HTML agar stabil di DomPDF.
+  - Margin, padding, dan font sudah diatur agar proporsional saat dicetak kertas A4.
+
+- **Tampilan HR Dashboard – Daftar Pengajuan Cuti:**
+  - Tombol **“Cetak PDF”** kini **sejajar horizontal** dengan dropdown status dan tombol Simpan.
+  - Layout kolom aksi diperbaiki dengan sistem **flexbox** (`flex items-center gap-2`).
+  - Tombol tampil dinamis hanya pada status *Disetujui* untuk menjaga alur workflow HR.
+
+#### 🎨 UI/UX Enhancement
+- Jarak antar tombol dan dropdown kini proporsional, tidak saling tumpang tindih.
+- Tampilan dark mode tetap konsisten di seluruh kolom aksi.
+- Desain surat PDF kini menyerupai format dokumen HR resmi — formal, ringkas, dan mudah dibaca.
+
+#### ✅ Hasil Akhir
+> _Surat cuti kini memiliki tampilan final profesional dengan area tanda tangan dan catatan manual._  
+> _Tampilan HR dashboard juga lebih rapi dan responsif dengan tombol aksi sejajar._
+
+---
+
+### 🧩 Struktur yang Terpengaruh
+```text
+resources/views/hr/cuti/index.blade.php
+resources/views/pdf/cuti.blade.php
+```
+---
+
 ## [v0.4.7] — 10 November 2025
 ### 👥 Manajemen Data Karyawan (CRUD + Super Reset)
 

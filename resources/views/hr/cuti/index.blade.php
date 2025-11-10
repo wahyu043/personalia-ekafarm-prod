@@ -78,30 +78,43 @@
                  border border-red-400/50 dark:border-red-300/30">Ditolak</span>
                         @endif
                     </td>
-                    <td class="border border-black/70 dark:border-[#9dcd5a]/40 p-2 text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-[#4c6647]/60 transition-colors">
-                        <form action="{{ route('hr.cuti.updateStatus', $item->id) }}" method="POST" class="flex items-center gap-2">
-                            @csrf
-                            <select name="status"
-                                class="rounded-md border border-gray-300 dark:border-[#9dcd5a]/40 
+                    <td class="border border-black/70 dark:border-[#9dcd5a]/40 p-2 
+           text-sm text-gray-700 dark:text-gray-200 
+           bg-white dark:bg-[#4c6647]/60 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <form action="{{ route('hr.cuti.updateStatus', $item->id) }}" method="POST" class="flex items-center gap-2">
+                                @csrf
+                                <select name="status"
+                                    class="rounded-md border border-gray-300 dark:border-[#9dcd5a]/40 
                        bg-white dark:bg-[#4c6647]/40 text-gray-700 dark:text-gray-100 
                        text-sm px-3 py-1 pr-6 appearance-none
                        bg-[url('data:image/svg+xml;utf8,<svg fill=\'none\' stroke=\'%23a1a1aa\' stroke-width=\'1.5\' viewBox=\'0 0 24 24\' xmlns=\'http://www.w3.org/2000/svg\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M8.25 9.75L12 13.5l3.75-3.75\'/></svg>')]
                        bg-no-repeat bg-right-2 bg-[length:1em_1em]
                        focus:ring-0 focus:outline-none transition-colors">
-                                <option value="menunggu" {{ $item->status == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
-                                <option value="disetujui" {{ $item->status == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
-                                <option value="ditolak" {{ $item->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-                            </select>
+                                    <option value="menunggu" {{ $item->status == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                                    <option value="disetujui" {{ $item->status == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
+                                    <option value="ditolak" {{ $item->status == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                </select>
 
-                            <!-- Komponen Reusable Modal -->
-                            <x-confirm-modal
-                                trigger="Simpan"
-                                title="Konfirmasi Perubahan Status"
-                                :message="'Yakin ubah status cuti ini menjadi ' . ucfirst($item->status) . '?'"
-                                confirm="Ya, Ubah"
-                                cancel="Batal" />
-                        </form>
+                                <x-confirm-modal
+                                    trigger="Simpan"
+                                    title="Konfirmasi Perubahan Status"
+                                    :message="'Yakin ubah status cuti ini menjadi ' . ucfirst($item->status) . '?'"
+                                    confirm="Ya, Ubah"
+                                    cancel="Batal" />
+                            </form>
+
+                            {{-- Tombol Cetak sejajar --}}
+                            @if ($item->status === 'disetujui')
+                            <a href="{{ route('hr.cuti.pdf', $item->id) }}"
+                                class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-md 
+                      bg-emerald-600 text-white hover:bg-emerald-700 transition">
+                                Cetak PDF
+                            </a>
+                            @endif
+                        </div>
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>
