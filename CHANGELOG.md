@@ -1,5 +1,101 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.4.7] — 10 November 2025
+### 👥 Manajemen Data Karyawan (CRUD + Super Reset)
+
+#### ✨ Penambahan
+- **Halaman Daftar Karyawan (Index):**
+  - Tabel interaktif dengan tampilan seragam seperti modul Cuti (warna, border, dark mode).
+  - Kolom: No, Nama, NIP, Email, Role, dan Aksi.
+- **Fitur Tambah & Edit Data:**
+  - Form input lengkap (nama, NIP, email, role, password).
+  - Validasi input wajib (`required`) pada semua field penting.
+  - Tampilan konsisten dengan palet hijau Ekafarm.
+- **Modal Konfirmasi Penghapusan:**
+  - Komponen reusable `<x-confirm-delete>` dengan efek transisi halus dan tema hijau tua.
+  - Tombol aksi "Batal" dan "Ya, Hapus" responsif terhadap dark mode.
+- **Super Reset Password (HR Only):**
+  - Tombol **Reset** di dashboard HR untuk mengatur ulang password karyawan ke default (`password123`).
+  - Modal `<x-confirm-reset>` dengan warna kuning keemasan (warning tone) dan animasi fade + scale.
+  - Rute dan controller baru untuk aksi reset, lengkap dengan notifikasi keberhasilan.
+
+#### 🧱 Refactor
+- **Konsistensi Desain:** seluruh tombol aksi (Edit, Reset, Hapus) kini menggunakan gaya *badge-border* seragam seperti status cuti.
+- **Dark Mode:** setiap elemen tabel telah menyesuaikan warna teks dan latar belakang agar kontras seimbang di mode gelap.
+- **Componentization:** tombol konfirmasi dipecah menjadi komponen Blade untuk kemudahan reuse di modul lain.
+
+#### ✅ Hasil Akhir
+Sistem CRUD Data Karyawan oleh HR telah lengkap, fungsional, dan tampil konsisten dengan modul Cuti.  
+Fitur tambahan *Super Reset Password* menambah fleksibilitas tanpa mengorbankan keamanan.
+
+
+## [v0.4.6] — 10 November 2025
+### 🌗 Global Table Style & Sidebar Modularization
+
+#### 🎨 UI/UX Enhancement
+- **Dark Mode Fix:** warna teks dan latar tabel kini otomatis menyesuaikan, memastikan kontras tinggi di mode gelap.
+- **Global Table Style:** semua halaman (Cuti, Karyawan, HR Dashboard) kini memakai satu standar `global.css`.
+  - Teks adaptif `dark:text-gray-200`.
+  - Hover lembut hijau natural di light mode dan hijau tua transparan di dark mode.
+  - Empty state rapi (`italic`, `gray tone`).
+- **Utility Class Baru:**
+  - `.btn-primary` → tombol hijau utama Ekafarm.
+  - `.btn-secondary` → tombol netral abu adaptif.
+  - `.badge-*` → status Menunggu / Disetujui / Ditolak.
+- **Komponen Sidebar Reusable:**
+  - Dibuat `resources/views/components/sidebar.blade.php`.
+  - Navigasi otomatis berdasarkan role (Karyawan / HR).
+  - Route aktif mendapat highlight hijau lembut (`bg-[#9dcd5a]/30`).
+
+#### 🧱 Refactor
+- View `hr/karyawan/index.blade.php` direstrukturisasi agar sepenuhnya memanfaatkan class global (`.table-wrapper`, `.btn-primary`).
+- Penghapusan style inline yang tumpang tindih di mode gelap.
+- Layout `app.blade.php` kini memanggil `<x-sidebar />` untuk sidebar dinamis.
+
+#### ✅ Hasil Akhir
+>_Semua tampilan kini responsif, bersih, dan memiliki keseragaman gaya di mode terang maupun gelap._
+>_CRUD Karyawan dan dashboard HR tampil konsisten tanpa konflik warna atau duplikasi style._
+
+---
+
+## [v0.4.5] — 9–10 November 2025
+### 🧑‍💼 CRUD Data Karyawan (HR Module)
+
+#### 🚀 Fitur Baru
+- **CRUD Data Karyawan penuh**:
+  - Tambah, Edit, Hapus data user dari tabel `users`.
+  - Validasi kolom `name`, `nip`, `email`, `role`, dan `password`.
+  - Password otomatis di-hash menggunakan `Hash::make`.
+- **Kolom NIP aktif**:
+  - Field input & tampilan pada tabel `index`.
+  - Validasi `unique:users,nip` untuk mencegah duplikasi.
+- **Flash Message modular (`<x-alert />`)**:
+  - Pesan sukses dan error muncul otomatis di semua halaman CRUD.
+- **Navigasi HR Sidebar:**
+  - Menu baru “👥 Data Karyawan” di sidebar HR, route aktif ter-highlight.
+- **Layout update:**
+  - File `app.blade.php` diperbarui untuk mendukung peran HR & Karyawan dengan navigasi adaptif.
+
+#### 💅 UI/UX Enhancement
+- Warna hijau Ekafarm dominan (`#4c6647`, `#6da54e`, `#9dcd5a`).
+- Tampilan tabel bersih, dengan hover lembut dan kontras status.
+- Flash message tunggal (duplikat di layout dihapus).
+
+#### 🧱 Struktur Baru
+```text
+app/Http/Controllers/HR/KaryawanController.php
+resources/views/hr/karyawan/
+ ├── index.blade.php
+ ├── create.blade.php
+ └── edit.blade.php
+```
+
+### ✅ Hasil Akhir
+
+> _HR kini bisa mengelola seluruh data karyawan dari dashboard tanpa akses database manual._
+> _CRUD berjalan penuh, dengan validasi, flash message, dan tampilan seragam di seluruh sistem._
+---
+
 ## [v0.4.5] — 2–3 November 2025
 ### 🧑‍💼 HR Dashboard & Global Table Style
 

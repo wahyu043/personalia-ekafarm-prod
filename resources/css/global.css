@@ -189,46 +189,85 @@
 
 }
 
-/* =======================================================
-   🌿 GLOBAL TABLE STYLE — Personalia Ekafarm PROD v0.4.5
-   ======================================================= */
+/* ==========================================================
+   🌿 Ekafarm Global Table Style — Refined v0.4.6
+   ========================================================== */
 
-table {
-    border-collapse: collapse;
-    @apply min-w-full border border-gray-300 dark:border-transparent rounded-lg overflow-hidden transition-colors duration-200;
+/* === TABLE WRAPPER === */
+.table-wrapper {
+    @apply overflow-x-auto rounded-xl shadow-sm bg-white dark:bg-[#4c6647]/50 transition-colors duration-300;
 }
 
-/* ====== HEADER ====== */
-thead {
-    @apply bg-gray-100 dark:bg-slate-900 uppercase border-b border-gray-300 dark:border-transparent;
+/* === TABLE BASE === */
+table {
+    @apply w-full border-collapse rounded-xl overflow-hidden text-sm;
+}
+
+/* === TABLE HEADER === */
+thead tr {
+    @apply bg-[#4c6647] dark:bg-[#3a4f33];
 }
 
 thead th {
-    @apply px-4 py-3 text-center text-sm font-semibold text-gray-800 dark:text-gray-100 bg-[#f8f8ee] dark:bg-[#4c6647]/80 border border-gray-300 dark:border-[#9dcd5a]/40 first:rounded-tl-lg last:rounded-tr-lg last:border-r-0 transition-colors duration-200;
+    @apply px-4 py-3 text-center text-xs font-semibold tracking-wide uppercase text-white border-b border-[#9dcd5a]/30;
 }
 
-/* ====== BODY ====== */
+/* === TABLE BODY === */
+tbody tr {
+    @apply border-b border-[#9dcd5a]/20 transition-colors duration-200;
+}
+
 tbody td {
-    @apply border border-gray-300 dark:border-[#9dcd5a]/40 p-2 text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-[#4c6647]/60 text-center transition-colors last:border-r-0;
+    @apply text-[#4c6647] dark:text-gray-200 dark:font-medium;
 }
 
-/* Hover baris */
+/* === HOVER EFFECT === */
 tbody tr:hover {
-    @apply bg-[#9dcd5a]/10 dark:bg-[#4c6647]/40 transition-colors;
+    @apply bg-[#9dcd5a]/10 dark:bg-[#9dcd5a]/20;
 }
 
-/* Sudut bawah lembut */
-tbody tr:last-child td:first-child {
-    @apply rounded-bl-lg;
+/* === STATUS BADGE === */
+.status-badge {
+    @apply px-2 py-1 text-xs font-semibold rounded-md border transition-colors;
 }
 
-tbody tr:last-child td:last-child {
-    @apply rounded-br-lg;
+.status-badge.menunggu {
+    @apply bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-500/20 dark:text-yellow-200 dark:border-yellow-300/30;
 }
 
-/* ====== RESPONSIVENESS & ANIMATION ====== */
-tbody,
-thead,
-table {
-    @apply transition-colors duration-200 ease-in-out;
+.status-badge.disetujui {
+    @apply bg-green-100 text-green-800 border-green-400/60 dark:bg-green-500/20 dark:text-green-200 dark:border-green-300/30;
+}
+
+.status-badge.ditolak {
+    @apply bg-red-100 text-red-700 border-red-400/60 dark:bg-red-500/20 dark:text-red-300 dark:border-red-300/30;
+}
+
+/* === SELECT DROPDOWN === */
+.table-select {
+    @apply rounded-md border border-gray-300 dark:border-[#9dcd5a]/40 bg-white dark:bg-[#4c6647]/40 text-gray-700 dark:text-gray-100 text-sm px-3 py-1 pr-6 appearance-none focus:ring-0 focus:outline-none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%23a1a1aa' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M8.25 9.75L12 13.5l3.75-3.75'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1em 1em;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    thead {
+        @apply hidden;
+    }
+
+    tbody tr {
+        @apply block mb-4 border border-[#9dcd5a]/30 rounded-lg;
+    }
+
+    tbody td {
+        @apply flex justify-between items-center px-3 py-2;
+    }
+
+    tbody td::before {
+        @apply font-semibold text-gray-500 dark:text-gray-300;
+        content: attr(data-label);
+    }
 }

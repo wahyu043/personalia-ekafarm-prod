@@ -1,5 +1,6 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 /* ===== Custom project style ===== */
 @import './global.css';
+@import './forms.css';
+@tailwind utilities;

@@ -124,5 +124,5 @@ Lisensi bersifat **private**, namun dokumentasi dapat digunakan sebagai referens
 
 ---
 
-> _“Bismillah, semoga lebih rapi dari yang sebelumnya.”_  
+> _“Bismillah, semoga akhir tahun selesai.”_  
 > — Wahyu Mahmudiyanto, 2025-10-25

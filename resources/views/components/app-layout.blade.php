@@ -48,24 +48,12 @@
     <div class="flex flex-1 relative">
 
         {{-- SIDEBAR --}}
-        <aside id="sidebar" class="sidebar fixed md:static z-30 inset-y-0 left-0 w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-200
-           bg-[#6da54e] dark:bg-[#0f172a] text-white min-h-screen py-6 px-4">
-            <ul class="space-y-2 text-sm">
-                <li><a href="{{ route('dashboard') }}" class="block py-2 px-3 rounded hover:bg-[#9dcd5a] dark:hover:bg-slate-800">🏠 Dashboard</a></li>
-
-                @if(Auth::user()->role === 'karyawan')
-                <li><a href="{{ route('karyawan.cuti.index') }}" class="block py-2 px-3 rounded hover:bg-[#9dcd5a] dark:hover:bg-gray-700">📝 Daftar Cuti</a></li>
-                <li><a href="{{ route('karyawan.cuti.create') }}" class="block py-2 px-3 rounded hover:bg-[#9dcd5a] dark:hover:bg-gray-700">➕ Ajukan Cuti</a></li>
-                @elseif(Auth::user()->role === 'hr')
-                <li><a href="{{ route('hr.cuti.index') }}" class="block py-2 px-3 rounded hover:bg-[#9dcd5a] dark:hover:bg-gray-700">📋 Semua Pengajuan</a></li>
-                @endif
-            </ul>
-        </aside>
+        <x-sidebar />
 
         {{-- MAIN CONTENT --}}
         <main class="flex-1 p-6 md:ml-0">
             {{-- Flash Message --}}
-            @if (session('success'))
+            <!-- @if (session('success'))
             <div class="bg-green-100 text-green-800 border-l-4 border-green-600 p-3 mb-4 rounded-md dark:bg-green-900 dark:text-green-100">
                 {{ session('success') }}
             </div>
@@ -73,7 +61,7 @@
             <div class="bg-red-100 text-red-800 border-l-4 border-red-600 p-3 mb-4 rounded-md dark:bg-red-900 dark:text-red-100">
                 {{ session('error') }}
             </div>
-            @endif
+            @endif -->
 
             {{-- Page Content --}}
             <div class="bg-white shadow-sm rounded-xl p-6 transition-colors duration-200

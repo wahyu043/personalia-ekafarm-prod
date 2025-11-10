@@ -8,6 +8,7 @@ use App\Http\Controllers\CutiController;
 use App\Http\Controllers\HR\DashboardController;
 use App\Http\Controllers\HR\KaryawanController; // (disiapkan untuk v0.4.5 tahap 2)
 
+
 // ======================================================
 // 🌐 ROUTE UTAMA (Guest & Redirect)
 // ======================================================
@@ -63,8 +64,15 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
     Route::get('/hr/cuti', [CutiController::class, 'indexHr'])->name('hr.cuti.index');
     Route::post('/hr/cuti/{id}/status', [CutiController::class, 'updateStatus'])->name('hr.cuti.updateStatus');
 
-    // (Next v0.4.5) Data Karyawan Management
-    // Route::get('/hr/karyawan', [KaryawanController::class, 'index'])->name('hr.karyawan.index');
+    // Data Karyawan Management
+    Route::middleware(['auth', 'role:hr'])->group(function () {
+        Route::resource('hr/karyawan', KaryawanController::class)->names('hr.karyawan');
+    });
+
+    // Reset Password Karyawan
+    Route::post('/hr/karyawan/{id}/reset-password', [KaryawanController::class, 'resetPassword'])
+    ->name('hr.karyawan.resetPassword');
+
 });
 
 // ======================================================
