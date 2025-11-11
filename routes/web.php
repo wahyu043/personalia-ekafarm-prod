@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 // 🔹 Controller Imports
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\HR\DashboardController;
@@ -14,9 +15,11 @@ use App\Http\Controllers\CutiPdfController;
 // 🌐 ROUTE UTAMA (Guest & Redirect)
 // ======================================================
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::redirect('/', '/login');
 
 // Redirect dashboard sesuai role login
 Route::get('/dashboard', function () {
@@ -66,10 +69,8 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
     Route::post('/hr/cuti/{id}/status', [CutiController::class, 'updateStatus'])->name('hr.cuti.updateStatus');
 
     // Data Karyawan Management
-    Route::middleware(['auth', 'role:hr'])->group(function () {
-        Route::resource('hr/karyawan', KaryawanController::class)->names('hr.karyawan');
-    });
-
+    Route::resource('hr/karyawan', KaryawanController::class)->names('hr.karyawan');
+    
     // Reset Password Karyawan
     Route::post('/hr/karyawan/{id}/reset-password', [KaryawanController::class, 'resetPassword'])
         ->name('hr.karyawan.resetPassword');
