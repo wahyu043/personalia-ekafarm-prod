@@ -1,110 +1,141 @@
 # 🧭 Personalia Ekafarm PROD
 
 **Personalia Ekafarm PROD** adalah sistem internal berbasis web untuk mengelola data cuti karyawan di lingkungan **CV. Agro Sukses Abadi (Ekafarm)**.  
-Proyek ini dibangun dari awal menggunakan **Laravel 12** dan **Tailwind CSS v4**, ditujukan untuk digitalisasi manajemen SDM dan sebagai portofolio pengembang.
+Aplikasi ini dibangun dari nol menggunakan **Laravel 12** dan **Tailwind CSS v4**, ditujukan untuk digitalisasi manajemen SDM serta menjadi _legacy project_ pribadi pengembang.
 
 ---
 
-## 🚀 Fitur Utama (Roadmap MVP)
+## 🚀 Fitur Utama (Versi v0.5.2)
 
-| Status | Fitur | Keterangan |
-|:--:|:--|:--|
-| ✅ | Setup Laravel 12 + Tailwind CSS v4 | Inisialisasi proyek dasar, Vite aktif, environment stabil |
-| ✅ | Auth 2 role (HR & Karyawan) | Registrasi, login, dan middleware pembeda dashboard |
-| ✅ | Dashboard HR & Karyawan | Tampilan utama berbeda sesuai role pengguna |
-| 🔄 | Pengajuan cuti (aktif) | Form pengajuan dengan tanggal, alasan (teks), dan bukti opsional upload |
-| ⏳ | Jenis form lain (izin, lembur, pinjam fasilitas) | Ditampilkan tapi belum aktif — diberi label “Segera Hadir” |
-| ⏳ | Karyawan pengganti | Kolom teks area manual untuk nama karyawan pengganti |
-| ⏳ | Approval HR & Manajer Divisi | HR dan Manajer menandatangani form cuti (kolom tanda tangan basah di PDF) |
-| ⏳ | Cetak PDF surat cuti | Export surat cuti resmi dengan tanda tangan dan status |
-| ⏳ | Dashboard statistik HR | HR dapat melihat rekap cuti, jumlah pengajuan, dan status persetujuan |
+| Status | Fitur                                            | Keterangan                                                         |
+| :----: | :----------------------------------------------- | :----------------------------------------------------------------- |
+|   ✅   | Setup Laravel 12 + Tailwind v4                   | Struktur proyek dasar & integrasi Vite berjalan stabil             |
+|   ✅   | Autentikasi multi-role (HR & Karyawan)           | Login, register, dan middleware `role` berjalan sempurna           |
+|   ✅   | Dashboard Karyawan Dinamis                       | Statistik & riwayat pengajuan cuti ditarik langsung dari database  |
+|   ✅   | Dashboard HR                                     | Menampilkan rekap global pengajuan, status, dan tombol cetak PDF   |
+|   ✅   | Sistem Cetak PDF Surat Cuti                      | Format surat resmi A4 dengan area tanda tangan dan catatan manajer |
+|   ✅   | CRUD Data Karyawan (HR)                          | HR dapat menambah, edit, hapus, dan reset password karyawan        |
+|   ✅   | Desain Login Bernuansa Ekafarm                   | Login Breeze diubah total menyesuaikan palet warna brand           |
+|   ⏳   | Reset Password Mandiri (Karyawan)                | Akan diaktifkan di v0.6.0 melalui Mailtrap (email testing)         |
+|   ⏳   | Jenis Form Lain (Izin, Lembur, Pinjam Fasilitas) | Direncanakan untuk fitur selanjutnya                               |
 
 ---
 
-## ⚙️ Setup Awal
+## 🌿 Highlight v0.5.1
 
-### 1️⃣ Instalasi Laravel
+- **Dashboard karyawan** kini sepenuhnya dinamis:
+    - Statistik pengajuan berdasarkan status (_menunggu_, _disetujui_, _ditolak_).
+    - Riwayat pengajuan terakhir (limit 5 data).
+- **Middleware `role` tunggal** menggantikan alias terpisah `hr` dan `karyawan`.
+- **Layout profil header baru:** avatar, nama, divisi, dan tanggal di pojok kanan atas.
+- **Tone warna hijau Ekafarm konsisten** di seluruh halaman (login, dashboard, tabel, dark mode).
+- **Route** sudah terbagi rapi:
+    - `/karyawan/dashboard` untuk karyawan.
+    - `/hr/dashboard` untuk HR.
+    - `/cuti/{id}` sementara diarahkan ke halaman daftar cuti.
+
+---
+
+## ⚙️ Instalasi & Setup Lokal
+
+### 1️⃣ Clone repositori
 
 ```bash
-composer create-project laravel/laravel personalia-ekafarm-prod
+git clone https://github.com/wahyu043/personalia-ekafarm-prod.git
 cd personalia-ekafarm-prod
 ```
 
-### 2️⃣ Instalasi Dependency Frontend
+### 2️⃣ Install dependency backend & frontend
 
 ```bash
+composer install
 npm install
 ```
 
-### 3️⃣ Instalasi Tailwind CSS v4
+### 3️⃣ Salin & konfigurasi environment
 
 ```bash
-npm install tailwindcss
+cp .env.example .env
+php artisan key:generate
 ```
 
-Edit `resources/css/app.css`:
-```css
-@import "tailwindcss";
+Edit bagian database sesuai konfigurasi lokal kamu:
+
+```env
+DB_DATABASE=personalia_ekafarm
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-> ⚠️ Tidak perlu `tailwind.config.js` karena Tailwind v4 sudah auto-config.
+### 4️⃣ Migrasi database
 
-### 4️⃣ Jalankan Server
+```bash
+php artisan migrate
+```
+
+### 5️⃣ Jalankan aplikasi
 
 ```bash
 npm run dev
 php artisan serve
 ```
+
 Akses di browser → [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
-## 🧱 Struktur Awal Proyek
+## 🧱 Struktur Proyek
 
 ```
 personalia-ekafarm-prod/
 ├── app/
-│   ├── Http/Controllers/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── HR/
+│   │   │   └── Karyawan/
+│   │   └── Middleware/
 │   ├── Models/
 │   └── Providers/
 ├── resources/
 │   ├── views/
+│   │   ├── hr/
+│   │   ├── karyawan/
+│   │   └── components/
 │   ├── css/app.css
 │   └── js/app.js
 ├── routes/web.php
+├── database/migrations/
+├── public/
 └── package.json
 ```
 
 ---
 
-## 💡 Uji Integrasi Tailwind
+## 💡 Teknologi
 
-Edit `resources/views/welcome.blade.php`:
-```html
-<h1 class="text-3xl font-bold text-green-600 text-center mt-10">
-  Laravel + Tailwind CSS v4 Aktif 🎉
-</h1>
-```
-
-Jika teks hijau besar muncul, Tailwind berhasil terpasang.
-
----
-
-## 🌿 Versi & Teknologi
-
-| Komponen | Versi | Keterangan |
-|-----------|--------|------------|
-| Laravel | 12.x | Framework utama backend |
-| PHP | 8.2.24 | Sesuai requirement Laravel 12 |
-| Node.js | 20.19.1 | Build tools (Vite + Tailwind) |
-| Tailwind CSS | 4.x | Styling modern berbasis utility |
-| Database | MySQL / MariaDB | Disesuaikan dengan server Ekafarm |
+| Komponen            | Versi   | Deskripsi                       |
+| ------------------- | ------- | ------------------------------- |
+| **Laravel**         | 12.x    | Framework backend utama         |
+| **PHP**             | 8.2.24  | Sesuai requirement Laravel 12   |
+| **Node.js**         | 20.19.1 | Build tools (Vite + Tailwind)   |
+| **Tailwind CSS**    | 4.x     | Styling modern berbasis utility |
+| **MySQL / MariaDB** | 5.7+    | Basis data utama                |
+| **Laravel Breeze**  | v2      | Sistem autentikasi dan UI dasar |
+| **DOMPDF**          | v2.x    | Export PDF surat cuti           |
+| **Vite**            | v5      | Compiler CSS & JS modern        |
 
 ---
 
-## 🧾 CHANGELOG
+## 🪶 Workflow Pengembangan
 
-Lihat file [`CHANGELOG.md`](./CHANGELOG.md) untuk daftar lengkap perubahan versi.
+|   Versi    | Fase                                | Fokus                               |
+| :--------: | :---------------------------------- | :---------------------------------- |
+|   v0.4.3   | UI/UX Consolidation                 | Dashboard seragam HR & Karyawan     |
+|   v0.4.4   | Global Styling                      | Palet & dark mode stabil            |
+|   v0.4.5   | CRUD Karyawan                       | HR bisa kelola data user            |
+|   v0.5.0   | Export PDF                          | Surat cuti resmi A4 final           |
+| **v0.5.1** | Finalisasi Role & Dashboard Dinamis | Data real-time, login selaras brand |
+| ⏳ v0.6.0  | Reset Password Mandiri              | Aktivasi Mailtrap & audit log       |
 
 ---
 
@@ -117,12 +148,12 @@ SEO Specialist & Web Developer at [Ekafarm](https://ekafarm.com)
 
 ---
 
-## Lisensi
+## 🧾 Lisensi
 
-Proyek ini dirancang untuk kebutuhan internal CV. Agro Sukses Abadi dan portofolio pribadi.  
-Lisensi bersifat **private**, namun dokumentasi dapat digunakan sebagai referensi pembelajaran Laravel.
+Proyek ini bersifat **private** dan digunakan secara internal di lingkungan **CV. Agro Sukses Abadi (Ekafarm)**.  
+Seluruh dokumentasi teknis dapat digunakan sebagai bahan referensi pembelajaran Laravel modern.
 
 ---
 
-> _“Bismillah, semoga akhir tahun selesai.”_  
-> — Wahyu Mahmudiyanto, 2025-10-25
+> _“Alhamdulillah, v0.5.2 rampung lebih cepat dari target.”_  
+> — Wahyu Mahmudiyanto, 11 November 2025

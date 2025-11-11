@@ -1,24 +1,33 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
-## [v0.5.2] — 11 November 2025
+## [v0.5.1] — 11 November 2025
 
-### 🎨 Finalisasi Login Portal Ekafarm
+### 🧭 Stabilitas Dashboard & Role System
 
 #### ✨ Penambahan
+- Penyesuaian desain layout halaman **login Breeze** agar selaras dengan tone warna **Ekafarm**:
+  - Hijau daun `#6da54e` dan hijau tua `#4c6647` sebagai warna utama.
+  - Tata letak dua kolom responsif (form & visual).
+- Penambahan tampilan tanggal otomatis di header dashboard karyawan (`{{ now()->format('l, d M Y') }}`).
+- Penyesuaian layout header profil (`justify-between`) agar avatar, nama, dan tanggal sejajar rapi di mode terang maupun gelap.
 
-- Desain login dua kolom dengan latar daun khas Ekafarm.
-- Background full-screen responsif (`bg-cover` + stretch horizontal).
-- Logo, tagline, dan teks sambutan “Selamat Datang di Sistem Personalia”.
-- Warna hijau Ekafarm (`#4c6647` / `#6da54e`) konsisten di semua elemen.
+#### 🔧 Perbaikan
+- **Dashboard Karyawan:** kini sepenuhnya **menampilkan data dinamis dari database**, meliputi:
+  - Statistik pengajuan cuti (Menunggu, Disetujui, Ditolak, Sisa Cuti).
+  - Riwayat pengajuan terakhir (5 data terbaru) berdasarkan `Auth::id()`.
+- **Router System:** perbaikan struktur dan pembagian route menjadi dua role utama:
+  - `HR` → akses penuh manajemen cuti & karyawan.
+  - `Karyawan` → akses pengajuan dan riwayat pribadi.
+- **Middleware Role:** revisi konfigurasi `bootstrap/app.php` agar alias `role` terdaftar dan berjalan stabil.
 
-#### 🔧 Perubahan
+#### 🎨 UI/UX Enhancement
+- Penataan ulang komponen header profil dengan `flex justify-between` agar elemen sejajar.
+- Penambahan badge tanggal dinamis di pojok kanan header (dengan warna adaptif `dark:bg-[#9dcd5a]/30`).
+- Penyesuaian warna tombol dan teks di seluruh halaman login dan dashboard agar konsisten dengan identitas visual Ekafarm.
 
-- Route `/` diarahkan ke `/login` untuk akses utama.
-- Struktur `web.php` disederhanakan (role-based grouping dipertahankan).
-
-#### 🌿 Hasil Akhir
-
-Tampilan portal login menyerupai halaman beranda profesional dengan nuansa alami dan tenang, menjadi wajah utama Sistem Personalia Ekafarm.
+#### ✅ Hasil Akhir
+> _Sistem Personalia Ekafarm kini memiliki login yang selaras dengan brand identity, dashboard karyawan dinamis penuh, dan pembagian akses dua role (HR & Karyawan) yang stabil._  
+> _Milestone ini menandai berakhirnya fase pengembangan inti dan siap menuju versi 0.6.0 dengan fitur reset password dan pengembangan lanjut._
 
 ---
 

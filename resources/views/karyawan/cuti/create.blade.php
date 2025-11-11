@@ -8,7 +8,7 @@
         </div>
         @endif
 
-        <form action="{{ route('cuti.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('karyawan.cuti.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-4">
