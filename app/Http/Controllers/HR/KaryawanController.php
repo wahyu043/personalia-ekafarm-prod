@@ -38,7 +38,9 @@ class KaryawanController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('hr.karyawan.index')->with('success', 'Karyawan berhasil ditambahkan.');
+        return redirect()
+            ->route('hr.karyawan.index')
+            ->with('karyawan_success', 'Karyawan berhasil ditambahkan.');
     }
 
     public function edit(User $karyawan)
@@ -57,7 +59,9 @@ class KaryawanController extends Controller
 
         $karyawan->update($validated);
 
-        return redirect()->route('hr.karyawan.index')->with('success', 'Data karyawan berhasil diperbarui.');
+        return redirect()
+            ->route('hr.karyawan.index')
+            ->with('karyawan_success', 'Data karyawan berhasil diperbarui.');
     }
 
     public function resetPassword($id)
@@ -68,13 +72,16 @@ class KaryawanController extends Controller
         $karyawan->password = Hash::make('Ekafarm123');
         $karyawan->save();
 
-        return redirect()->route('hr.karyawan.index')
-            ->with('success', 'Password karyawan ' . $karyawan->name . ' telah direset ke "password123".');
+        return redirect()
+            ->route('hr.karyawan.index')
+            ->with('karyawan_success', 'Password karyawan ' . $karyawan->name . ' telah direset ke "password123".');
     }
 
     public function destroy(User $karyawan)
     {
         $karyawan->delete();
-        return redirect()->route('hr.karyawan.index')->with('success', 'Data karyawan berhasil dihapus.');
+        return redirect()
+            ->route('hr.karyawan.index')
+            ->with('karyawan_success', 'Data karyawan berhasil dihapus.');
     }
 }

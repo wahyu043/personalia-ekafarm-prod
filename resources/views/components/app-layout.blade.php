@@ -52,17 +52,6 @@
 
         {{-- MAIN CONTENT --}}
         <main class="flex-1 p-6 md:ml-0">
-            {{-- Flash Message --}}
-            <!-- @if (session('success'))
-            <div class="bg-green-100 text-green-800 border-l-4 border-green-600 p-3 mb-4 rounded-md dark:bg-green-900 dark:text-green-100">
-                {{ session('success') }}
-            </div>
-            @elseif (session('error'))
-            <div class="bg-red-100 text-red-800 border-l-4 border-red-600 p-3 mb-4 rounded-md dark:bg-red-900 dark:text-red-100">
-                {{ session('error') }}
-            </div>
-            @endif -->
-
             {{-- Page Content --}}
             <div class="bg-white shadow-sm rounded-xl p-6 transition-colors duration-200
               dark-panel">
