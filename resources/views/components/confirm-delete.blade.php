@@ -6,7 +6,8 @@
 'formId'
 ])
 
-<div x-data="{ open: false }" class="inline-block">
+<div x-data="{ open: false }" x-cloak class="inline-block">
+    
     <!-- Trigger -->
     <button type="button"
         @click="open = true"
@@ -16,7 +17,7 @@
 
     <!-- Overlay -->
     <div x-show="open"
-        x-cloak
+
         x-transition.opacity
         class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
 

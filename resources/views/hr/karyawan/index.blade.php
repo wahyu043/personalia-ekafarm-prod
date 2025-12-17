@@ -4,8 +4,6 @@
             Daftar Karyawan
         </h1>
 
-        <x-alert />
-
         <div class="flex justify-end mb-4">
             <a href="{{ route('hr.karyawan.create') }}"
                 class="px-4 py-2 bg-[#6da54e] text-white rounded-md hover:bg-[#4c6647] transition">

@@ -1,5 +1,39 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.5.2] — 17 Desember 2025
+
+### 🛠 Stabilitas Modal & Alpine.js (FOUC Fix)
+
+#### 🔧 Perbaikan
+- Perbaikan **modal konfirmasi (hapus & reset password)** yang sempat:
+  - muncul sesaat saat halaman dimuat (*FOUC / flash of modal*),
+  - atau terlihat seperti render ganda.
+- Akar masalah ditemukan pada **inisialisasi Alpine.js yang berjalan sebelum DOM siap**.
+
+#### 🔄 Perubahan Teknis
+- Inisialisasi Alpine.js dipindahkan ke dalam event `DOMContentLoaded`:
+  ```js
+  document.addEventListener('DOMContentLoaded', () => {
+      Alpine.start()
+  })
+
+  ```
+- Penempatan ulang atribut x-cloak pada root komponen modal agar bekerja optimal.
+- Rebuild asset front-end untuk memastikan sinkronisasi CSS dan JavaScript.
+
+#### 🎨 Dampak UI/UX
+
+- Modal tidak lagi muncul saat page load.
+- Overlay tidak pernah tampil tanpa interaksi user.
+- Navigasi halaman HR (Data Karyawan & Semua Pengajuan) menjadi lebih stabil dan bersih secara visual.
+
+#### 🧠 Catatan
+
+- Isu ini dikategorikan sebagai FOUC (Flash of Uninitialized Content).
+- Solusi bersifat production-safe dan direkomendasikan untuk seluruh komponen berbasis Alpine.js.
+
+---
+
 ## [v0.5.1] — 11 November 2025
 
 ### 🧭 Stabilitas Dashboard & Role System

@@ -40,7 +40,7 @@ class KaryawanController extends Controller
 
         return redirect()
             ->route('hr.karyawan.index')
-            ->with('karyawan_success', 'Karyawan berhasil ditambahkan.');
+            ->with('success', 'Karyawan berhasil ditambahkan.');
     }
 
     public function edit(User $karyawan)
@@ -61,7 +61,7 @@ class KaryawanController extends Controller
 
         return redirect()
             ->route('hr.karyawan.index')
-            ->with('karyawan_success', 'Data karyawan berhasil diperbarui.');
+            ->with('success', 'Data karyawan berhasil diperbarui.');
     }
 
     public function resetPassword($id)
@@ -74,7 +74,7 @@ class KaryawanController extends Controller
 
         return redirect()
             ->route('hr.karyawan.index')
-            ->with('karyawan_success', 'Password karyawan ' . $karyawan->name . ' telah direset ke "password123".');
+            ->with('success', 'Password karyawan ' . $karyawan->name . ' telah direset ke "password123".');
     }
 
     public function destroy(User $karyawan)
@@ -82,6 +82,6 @@ class KaryawanController extends Controller
         $karyawan->delete();
         return redirect()
             ->route('hr.karyawan.index')
-            ->with('karyawan_success', 'Data karyawan berhasil dihapus.');
+            ->with('success', 'Data karyawan berhasil dihapus.');
     }
 }
