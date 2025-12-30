@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
         return redirect()->route('hr.dashboard');
     }
 
-    if ($user?->role === 'karyawan') {
+    if ($user?->role === 'staff') {
         return redirect()->route('karyawan.dashboard');
     }
 
@@ -38,7 +38,7 @@ Route::get('/dashboard', function () {
 // 👤 KARYAWAN AREA
 // ======================================================
 
-Route::middleware(['auth', 'role:karyawan'])->group(function () {
+Route::middleware(['auth', 'role:staff'])->group(function () {
     Route::get('/karyawan/dashboard', [KaryawanDashboardController::class, 'index'])
         ->name('karyawan.dashboard');
 
@@ -47,7 +47,6 @@ Route::middleware(['auth', 'role:karyawan'])->group(function () {
     Route::get('/karyawan/cuti/create', [CutiController::class, 'create'])->name('karyawan.cuti.create');
     Route::post('/karyawan/cuti/store', [CutiController::class, 'store'])->name('karyawan.cuti.store');
     Route::get('/cuti/{id}', [CutiController::class, 'show'])->name('cuti.show');
-    
 });
 
 

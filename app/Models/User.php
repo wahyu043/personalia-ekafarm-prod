@@ -47,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relasi ke master data karyawan (via NIP)
+     */
+    public function karyawan()
+    {
+        return $this->hasOne(Karyawan::class, 'nip', 'nip');
+    }
 }

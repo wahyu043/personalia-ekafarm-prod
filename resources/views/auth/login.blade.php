@@ -37,8 +37,8 @@
 
                 {{-- Email --}}
                 <div>
-                    <label for="email" class="block text-sm font-medium mb-1">Email</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                    <label for="email" class="block text-sm font-medium mb-1">Nomor Induk Pegawai</label>
+                    <input id="nip" name="nip" type="text" required autofocus placeholder="NIP"
                         class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-[#6da54e] focus:border-[#6da54e] 
                            dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
                 </div>
@@ -46,7 +46,7 @@
                 {{-- Password --}}
                 <div>
                     <label for="password" class="block text-sm font-medium mb-1">Kata Sandi</label>
-                    <input id="password" type="password" name="password" required
+                    <input id="password" type="password" name="password" required placeholder="Password"
                         class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-[#6da54e] focus:border-[#6da54e]
                            dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
                 </div>

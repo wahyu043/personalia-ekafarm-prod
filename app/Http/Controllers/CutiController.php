@@ -26,6 +26,23 @@ class CutiController extends Controller
 
     public function store(Request $request)
     {
+        // 🔒 VALIDASI MASA KERJA (WAJIB)
+        $karyawan = auth()->user()->karyawan;
+
+        if (! $karyawan) {
+            abort(403, 'Data karyawan tidak ditemukan.');
+        }
+
+        // belum 12 bulan → tolak sistem
+        if ($karyawan->tanggal_masuk->addYear()->isFuture()) {
+            return back()->withErrors([
+                'cuti' => 'Hak cuti aktif setelah minimal 12 bulan masa kerja.'
+            ]);
+        }
+
+        // ===============================
+        // VALIDASI FORM (SUDAH ADA, AMAN)
+        // ===============================
         $request->validate([
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
@@ -34,11 +51,13 @@ class CutiController extends Controller
             'pengganti' => 'nullable|string',
         ]);
 
+        // upload bukti (jika ada)
         $buktiPath = null;
         if ($request->hasFile('bukti')) {
             $buktiPath = $request->file('bukti')->store('bukti_cuti', 'public');
         }
 
+        // simpan cuti
         Cuti::create([
             'user_id' => Auth::id(),
             'tanggal_pengajuan' => now(),

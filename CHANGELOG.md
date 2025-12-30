@@ -1,23 +1,64 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.5.3] — 30 Desember 2025
+
+### 🔐 Refactor Autentikasi & Sinkronisasi Data Karyawan
+
+#### ✨ Perubahan Utama
+
+- Sistem login **resmi beralih dari email ke NIP** sebagai kredensial utama.
+- Seluruh akun user kini **dibangkitkan dari master data karyawan**, bukan data dummy.
+- Default password internal diubah dan terenkripsi bcrypt.
+
+#### 🧱 Refactor Struktural
+
+- Standarisasi role sistem:
+    - `staff` → seluruh karyawan
+    - `hr` → Human Resource
+- Penyesuaian middleware `role` dan routing agar konsisten dengan role baru (`staff` menggantikan `karyawan`).
+- Perbaikan logic redirect dashboard pasca-login agar selaras dengan role aktual di database.
+- Penghapusan ketergantungan pada akun dummy / legacy user.
+
+#### 🔄 Sinkronisasi Data
+
+- Seeder internal dijalankan untuk:
+    - Mengisi tabel `users` dari tabel `karyawan`.
+    - Menyatukan autentikasi dan data HR melalui relasi berbasis **NIP**.
+- Seluruh user kini dapat login menggunakan **NIP + password default**.
+
+#### 🧠 Catatan Teknis
+
+- Update password massal dilakukan melalui Laravel Tinker (`Hash::make`) untuk menjaga keamanan.
+- Issue **403 Forbidden** pada dashboard staff berhasil diselesaikan (root cause: role mismatch).
+- Autentikasi dan role system dinyatakan **stabil & terkunci** sebagai fondasi fitur HR lanjutan.
+
+#### ✅ Dampak
+
+- Login internal kini lebih realistis untuk kebutuhan kantor (tanpa email personal).
+- Data karyawan menjadi **single source of truth** untuk autentikasi & hak akses.
+- Sistem siap masuk ke tahap **validasi cuti berbasis masa kerja**.
+
 ## [v0.5.2] — 17 Desember 2025
 
 ### 🛠 Stabilitas Modal & Alpine.js (FOUC Fix)
 
 #### 🔧 Perbaikan
+
 - Perbaikan **modal konfirmasi (hapus & reset password)** yang sempat:
-  - muncul sesaat saat halaman dimuat (*FOUC / flash of modal*),
-  - atau terlihat seperti render ganda.
+    - muncul sesaat saat halaman dimuat (_FOUC / flash of modal_),
+    - atau terlihat seperti render ganda.
 - Akar masalah ditemukan pada **inisialisasi Alpine.js yang berjalan sebelum DOM siap**.
 
 #### 🔄 Perubahan Teknis
-- Inisialisasi Alpine.js dipindahkan ke dalam event `DOMContentLoaded`:
-  ```js
-  document.addEventListener('DOMContentLoaded', () => {
-      Alpine.start()
-  })
 
-  ```
+- Inisialisasi Alpine.js dipindahkan ke dalam event `DOMContentLoaded`:
+
+    ```js
+    document.addEventListener("DOMContentLoaded", () => {
+        Alpine.start();
+    });
+    ```
+
 - Penempatan ulang atribut x-cloak pada root komponen modal agar bekerja optimal.
 - Rebuild asset front-end untuk memastikan sinkronisasi CSS dan JavaScript.
 
@@ -39,27 +80,31 @@
 ### 🧭 Stabilitas Dashboard & Role System
 
 #### ✨ Penambahan
+
 - Penyesuaian desain layout halaman **login Breeze** agar selaras dengan tone warna **Ekafarm**:
-  - Hijau daun `#6da54e` dan hijau tua `#4c6647` sebagai warna utama.
-  - Tata letak dua kolom responsif (form & visual).
+    - Hijau daun `#6da54e` dan hijau tua `#4c6647` sebagai warna utama.
+    - Tata letak dua kolom responsif (form & visual).
 - Penambahan tampilan tanggal otomatis di header dashboard karyawan (`{{ now()->format('l, d M Y') }}`).
 - Penyesuaian layout header profil (`justify-between`) agar avatar, nama, dan tanggal sejajar rapi di mode terang maupun gelap.
 
 #### 🔧 Perbaikan
+
 - **Dashboard Karyawan:** kini sepenuhnya **menampilkan data dinamis dari database**, meliputi:
-  - Statistik pengajuan cuti (Menunggu, Disetujui, Ditolak, Sisa Cuti).
-  - Riwayat pengajuan terakhir (5 data terbaru) berdasarkan `Auth::id()`.
+    - Statistik pengajuan cuti (Menunggu, Disetujui, Ditolak, Sisa Cuti).
+    - Riwayat pengajuan terakhir (5 data terbaru) berdasarkan `Auth::id()`.
 - **Router System:** perbaikan struktur dan pembagian route menjadi dua role utama:
-  - `HR` → akses penuh manajemen cuti & karyawan.
-  - `Karyawan` → akses pengajuan dan riwayat pribadi.
+    - `HR` → akses penuh manajemen cuti & karyawan.
+    - `Karyawan` → akses pengajuan dan riwayat pribadi.
 - **Middleware Role:** revisi konfigurasi `bootstrap/app.php` agar alias `role` terdaftar dan berjalan stabil.
 
 #### 🎨 UI/UX Enhancement
+
 - Penataan ulang komponen header profil dengan `flex justify-between` agar elemen sejajar.
 - Penambahan badge tanggal dinamis di pojok kanan header (dengan warna adaptif `dark:bg-[#9dcd5a]/30`).
 - Penyesuaian warna tombol dan teks di seluruh halaman login dan dashboard agar konsisten dengan identitas visual Ekafarm.
 
 #### ✅ Hasil Akhir
+
 > _Sistem Personalia Ekafarm kini memiliki login yang selaras dengan brand identity, dashboard karyawan dinamis penuh, dan pembagian akses dua role (HR & Karyawan) yang stabil._  
 > _Milestone ini menandai berakhirnya fase pengembangan inti dan siap menuju versi 0.6.0 dengan fitur reset password dan pengembangan lanjut._
 
