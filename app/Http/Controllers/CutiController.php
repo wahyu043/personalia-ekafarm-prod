@@ -34,14 +34,15 @@ class CutiController extends Controller
         }
 
         // belum 12 bulan → tolak sistem
-        if ($karyawan->tanggal_masuk->addYear()->isFuture()) {
+        if (! $karyawan->isEligibleCuti()) {
+
             return back()->withErrors([
                 'cuti' => 'Hak cuti aktif setelah minimal 12 bulan masa kerja.'
             ]);
         }
 
         // ===============================
-        // VALIDASI FORM (SUDAH ADA, AMAN)
+        // VALIDASI FORM
         // ===============================
         $request->validate([
             'tanggal_mulai' => 'required|date',
@@ -50,6 +51,19 @@ class CutiController extends Controller
             'bukti' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'pengganti' => 'nullable|string',
         ]);
+
+        // hitung jumlah hari cuti
+        $jumlahHari = \Carbon\Carbon::parse($request->tanggal_mulai)
+            ->diffInDays(
+                \Carbon\Carbon::parse($request->tanggal_selesai)
+            ) + 1;
+
+        // Validasi sisa cuti
+        if (auth()->user()->sisaCuti() < $jumlahHari) {
+            return back()->withErrors([
+                'cuti' => 'Sisa cuti Anda tidak mencukupi.'
+            ]);
+        }
 
         // upload bukti (jika ada)
         $buktiPath = null;
@@ -63,38 +77,88 @@ class CutiController extends Controller
             'tanggal_pengajuan' => now(),
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
+            // 'jumlah_hari' => $jumlahHari,
             'alasan' => $request->alasan,
             'bukti' => $buktiPath,
             'pengganti' => $request->pengganti,
-            'status' => 'menunggu',
+            'status' => 'menunggu_atasan',
         ]);
 
         return redirect()
             ->route('karyawan.dashboard')
-            ->with('success', 'Pengajuan cuti berhasil dikirim dan menunggu persetujuan HR.');
+            ->with('success', 'Pengajuan cuti berhasil dikirim dan menunggu persetujuan atasan Anda.');
     }
 
     // Status Cuti di HR
     public function indexHr()
     {
-        // tampilkan semua pengajuan cuti (untuk HR)
-        $cuti = \App\Models\Cuti::with('user')->latest()->get();
+        $base = Cuti::with(['user.karyawan']);
 
+        $countMenunggu = (clone $base)->where('status', 'menunggu_hr')->count();
+        $countDisetujui = (clone $base)->where('status', 'disetujui')->count();
+        $countDitolak = (clone $base)->where('status', 'ditolak')->count();
 
-        return view('hr.cuti.index', compact('cuti'));
+        $cuti = Cuti::with(['user.karyawan'])
+            ->where('status', 'menunggu_hr')
+            ->latest()
+            ->get();
+
+        return view('hr.cuti.index', compact('cuti', 'countMenunggu', 'countDisetujui', 'countDitolak'));
     }
 
-    public function updateStatus(Request $request, $id)
+
+    // tampilkan status pengajuan cuti approval atasan dan hr
+
+    public function indexAtasan()
     {
-        $request->validate([
-            'status' => 'required|in:menunggu,disetujui,ditolak',
-        ]);
+        $divisiAtasan = auth()->user()->karyawan->divisi;
 
-        $cuti = \App\Models\Cuti::findOrFail($id);
+        $cuti = Cuti::with(['user.karyawan'])
+            ->where('status', 'menunggu_atasan')
+            ->whereHas('user.karyawan', function ($q) use ($divisiAtasan) {
+                $q->where('divisi', $divisiAtasan);
+            })
+            ->latest()
+            ->get();
+
+        return view('atasan.cuti.index', compact('cuti'));
+    }
+
+
+    // Melihat status pengajuan 
+
+    public function approveAtasan($id)
+    {
+        $cuti = Cuti::findOrFail($id);
+
         $cuti->update([
-            'status' => $request->status,
+            'status' => 'menunggu_hr',
         ]);
 
-        return redirect()->route('hr.cuti.index')->with('success', 'Status pengajuan cuti telah diperbarui.');
+        return back()->with('success', 'Pengajuan diteruskan ke HR.');
+    }
+
+    // Approve by HR
+
+    public function approveHr($id)
+    {
+        $cuti = Cuti::findOrFail($id);
+
+        $cuti->update([
+            'status' => 'disetujui',
+            'approved_by_hr' => auth()->id(),
+            'approved_at_hr' => now(),
+        ]);
+
+        return back()->with('success', 'Pengajuan cuti disetujui.');
+    }
+
+    // Reject by HR
+    public function rejectHr($id)
+    {
+        $cuti = Cuti::findOrFail($id);
+        $cuti->update(['status' => 'ditolak']);
+
+        return back()->with('success', 'Pengajuan cuti ditolak.');
     }
 }

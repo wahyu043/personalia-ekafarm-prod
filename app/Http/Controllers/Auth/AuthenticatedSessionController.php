@@ -22,18 +22,31 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->authenticate();
-        $request->session()->regenerate();
+        $credentials = $request->validate([
+            'nip' => ['required', 'string'],
+            'password' => ['required'],
+        ]);
 
-        $user = auth()->user();
-
-        if ($user->role === 'hr') {
-            return redirect()->intended('/hr/dashboard');
+        if (! Auth::attempt([
+            'nip' => $credentials['nip'],
+            'password' => $credentials['password'],
+        ])) {
+            return back()->withErrors([
+                'nip' => 'NIP atau password salah.',
+            ]);
         }
 
-        return redirect()->intended('/karyawan/dashboard');
+        $request->session()->regenerate();
+
+        $user = Auth::user();
+
+        return match ($user->role) {
+            'hr'     => redirect()->route('hr.cuti.index'),
+            'atasan' => redirect()->route('atasan.cuti.index'),
+            default  => redirect()->route('karyawan.dashboard'),
+        };
     }
 
     /**

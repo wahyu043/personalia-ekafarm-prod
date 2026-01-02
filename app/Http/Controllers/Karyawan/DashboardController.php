@@ -11,31 +11,47 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $karyawan = $user->karyawan; // relasi user -> karyawan
 
-        // hitung statistik cuti
-        $totalDisetujui = Cuti::where('user_id', $user->id)
-            ->where('status', 'disetujui')
-            ->count();
+        // 🔑 status hak cuti
+        $isEligibleCuti = false;
+        if ($karyawan) {
+            $isEligibleCuti = $karyawan->isEligibleCuti();
+        }
 
-        $totalDitolak = Cuti::where('user_id', $user->id)
-            ->where('status', 'ditolak')
-            ->count();
+        // default aman
+        $totalDisetujui = 0;
+        $totalDitolak   = 0;
+        $totalMenunggu  = 0;
+        $sisaCuti       = 0;
+        $riwayatCuti    = collect();
 
-        $totalMenunggu = Cuti::where('user_id', $user->id)
-            ->where('status', 'menunggu')
-            ->count();
+        if ($karyawan && $karyawan->isEligibleCuti()) {
 
-        // misal jatah cuti default = 12
-        $sisaCuti = 12 - $totalDisetujui;
+            $totalDisetujui = Cuti::where('user_id', $user->id)
+                ->where('status', 'disetujui')
+                ->count();
 
-        // ambil riwayat pengajuan terakhir
-        $riwayatCuti = Cuti::where('user_id', $user->id)
-            ->orderByDesc('tanggal_pengajuan')
-            ->take(5)
-            ->get();
+            $totalDitolak = Cuti::where('user_id', $user->id)
+                ->where('status', 'ditolak')
+                ->count();
 
-        // kirim semua variabel ke view
+            $totalMenunggu = Cuti::where('user_id', $user->id)
+                ->where('status', 'menunggu')
+                ->count();
+
+            // jatah cuti tahunan
+            $jatahTahunan = 12;
+            $sisaCuti = max(0, $jatahTahunan - $totalDisetujui);
+
+            $riwayatCuti = Cuti::where('user_id', $user->id)
+                ->orderByDesc('tanggal_pengajuan')
+                ->take(5)
+                ->get();
+        }
+
         return view('karyawan.dashboard', compact(
+            'isEligibleCuti',
             'sisaCuti',
             'totalMenunggu',
             'totalDisetujui',

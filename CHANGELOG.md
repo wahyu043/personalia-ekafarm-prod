@@ -1,5 +1,60 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.5.4] — 2 Januari 2026
+
+### 🧩 Implementasi Workflow Cuti Berlapis & Dashboard Role-Based
+
+#### ✨ Perubahan Utama
+
+- Implementasi **alur persetujuan cuti berlapis**:
+    - Staff → SPV (Atasan Divisi) → HR (Final Approval).
+- Status cuti kini merepresentasikan tahapan approval secara nyata:
+    - `menunggu_atasan`
+    - `menunggu_hr`
+    - `disetujui`
+    - `ditolak`
+- Sisa cuti karyawan **baru berkurang setelah disetujui HR**.
+
+#### 🧭 Role & Hak Akses
+
+- Penambahan role baru:
+    - `atasan` → Supervisor / SPV berbasis divisi.
+- Akun atasan menggunakan **akun jabatan (job-based account)**, bukan personal.
+- Login tetap berbasis **NIP (lowercase)** untuk konsistensi & keamanan.
+- Atasan wajib memiliki representasi data di tabel `karyawan` untuk kebutuhan divisi & approval.
+
+#### 📊 Dashboard & UI
+
+- Dashboard **SPV/Atasan**:
+    - Menampilkan jumlah pengajuan cuti yang menunggu persetujuan berdasarkan divisi.
+    - Akses khusus ke daftar pengajuan cuti divisi masing-masing.
+- Dashboard **HR**:
+    - Ringkasan status pengajuan (Menunggu HR, Disetujui, Ditolak).
+    - Tampilan approval difokuskan pada aksi cepat (Setujui / Tolak).
+    - Pengajuan otomatis hilang dari daftar “Menunggu HR” setelah diproses (UX sesuai workflow nyata).
+
+#### 🔐 Keamanan & Isolasi Data
+
+- Validasi ketat berbasis divisi untuk mencegah kebocoran data antar divisi.
+- SPV hanya dapat melihat dan memproses cuti dari divisi yang sama.
+- HR memiliki visibilitas penuh lintas divisi.
+
+#### 🧠 Catatan Teknis
+
+- Relasi `User → Karyawan` berbasis **NIP** digunakan sebagai fondasi seluruh logic approval.
+- Penanganan error null-safe ditambahkan untuk akun non-karyawan (HR).
+- Penyempurnaan query Eloquent untuk approval berbasis role & divisi.
+- Sistem dinyatakan **stabil** untuk kebutuhan operasional internal sebelum fitur PDF.
+
+#### ✅ Dampak
+
+- Alur pengajuan cuti kini menyerupai proses HR nyata di internal kantor.
+- Beban kerja HR & atasan lebih terstruktur dan mudah dipantau.
+- Fondasi siap untuk pengembangan lanjutan:
+    - Audit trail approval
+    - Export PDF surat cuti
+    - Penambahan layer approval (Manager)
+
 ## [v0.5.3] — 30 Desember 2025
 
 ### 🔐 Refactor Autentikasi & Sinkronisasi Data Karyawan

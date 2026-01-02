@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Carbon\Carbon;
 
 class Karyawan extends Model
 {
@@ -24,13 +26,28 @@ class Karyawan extends Model
     ];
 
     /**
-     * Helper: cek hak cuti (>= 12 bulan)
+     * Hitung masa kerja (tahun penuh)
+     */
+    public function masaKerjaTahun(): int
+    {
+        return Carbon::parse($this->tanggal_masuk)->diffInYears(now());
+    }
+
+    /**
+     * Cek apakah sudah berhak cuti
      */
     public function isEligibleCuti(): bool
     {
-        return $this->tanggal_masuk
-            ->copy()
-            ->addYear()
-            ->isPast();
+        return $this->masaKerjaTahun() >= 1;
     }
+
+    /**
+     * Hak cuti tahunan
+     */
+    public function hakCutiTahunan(): int
+    {
+        return $this->isEligibleCuti() ? 12 : 0;
+    }
+
+    
 }

@@ -48,22 +48,46 @@
                     <td class="border border-black/70 dark:border-[#9dcd5a]/40 p-2 
            text-sm text-gray-700 dark:text-gray-200 
            bg-white dark:bg-[#4c6647]/60 transition-colors">
-                        @if ($item->status == 'menunggu')
-                        <span class="px-2 py-1 text-xs font-semibold rounded-md 
-                 bg-yellow-100 text-yellow-800 
-                 dark:bg-yellow-500/20 dark:text-yellow-300 
-                 border border-yellow-400/50 dark:border-yellow-300/30">Menunggu</span>
-                        @elseif ($item->status == 'disetujui')
-                        <span class="px-2 py-1 text-xs font-semibold rounded-md 
-                 bg-green-100 text-green-800 
-                 dark:bg-green-500/20 dark:text-green-300 
-                 border border-green-400/50 dark:border-green-300/30">Disetujui</span>
-                        @else
-                        <span class="px-2 py-1 text-xs font-semibold rounded-md 
-                 bg-red-100 text-red-700 
-                 dark:bg-red-500/20 dark:text-red-300 
-                 border border-red-400/50 dark:border-red-300/30">Ditolak</span>
-                        @endif
+                        @switch($item->status)
+
+                        @case('menunggu_atasan')
+                        <span class="px-2 py-1 text-xs font-semibold rounded-md
+        bg-gray-200 text-gray-800
+        dark:bg-gray-500/20 dark:text-gray-200
+        border border-gray-400/50 dark:border-gray-300/30">
+                            Menunggu Atasan
+                        </span>
+                        @break
+
+                        @case('menunggu_hr')
+                        <span class="px-2 py-1 text-xs font-semibold rounded-md
+        bg-yellow-100 text-yellow-800
+        dark:bg-yellow-500/20 dark:text-yellow-300
+        border border-yellow-400/50 dark:border-yellow-300/30">
+                            Menunggu HR
+                        </span>
+                        @break
+
+                        @case('disetujui')
+                        <span class="px-2 py-1 text-xs font-semibold rounded-md
+        bg-green-100 text-green-800
+        dark:bg-green-500/20 dark:text-green-300
+        border border-green-400/50 dark:border-green-300/30">
+                            Disetujui
+                        </span>
+                        @break
+
+                        @case('ditolak')
+                        <span class="px-2 py-1 text-xs font-semibold rounded-md
+        bg-red-100 text-red-700
+        dark:bg-red-500/20 dark:text-red-300
+        border border-red-400/50 dark:border-red-300/30">
+                            Ditolak
+                        </span>
+                        @break
+
+                        @endswitch
+
                     </td>
                 </tr>
                 @endforeach
@@ -71,10 +95,12 @@
         </table>
         @endif
 
+        @if($isEligibleCuti)
         <div class="mt-6 text-center">
             <a href="{{ route('karyawan.cuti.create') }}" class="inline-block px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
                 + Ajukan Cuti Baru
             </a>
         </div>
+        @endif
     </div>
 </x-app-layout>

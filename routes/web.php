@@ -65,6 +65,55 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
     Route::get('/hr/cuti/{cuti}/pdf', [CutiPdfController::class, 'export'])->name('hr.cuti.pdf');
 });
 
+// ==========================
+// ATASAN APPROVAL
+// ==========================
+Route::middleware(['auth', 'role:atasan'])->group(function () {
+    Route::get('/atasan/cuti', [CutiController::class, 'indexAtasan'])
+        ->name('atasan.cuti.index');
+
+    Route::post('/atasan/cuti/{id}/approve', [CutiController::class, 'approveAtasan'])
+        ->name('atasan.cuti.approve');
+});
+
+// ==========================
+// HR APPROVAL
+// ==========================
+Route::middleware(['auth', 'role:hr'])->group(function () {
+    Route::get('/hr/cuti', [CutiController::class, 'indexHr'])
+        ->name('hr.cuti.index');
+
+    Route::post('/hr/cuti/{id}/approve', [CutiController::class, 'approveHr'])
+        ->name('hr.cuti.approve');
+    Route::post('/hr/cuti/{id}/approve', [CutiController::class, 'approveHr'])->name('hr.cuti.approve');
+    Route::post('/hr/cuti/{id}/reject', [CutiController::class, 'rejectHr'])->name('hr.cuti.reject');
+});
+
+
+// ==========================
+// ROUTE DASHBOARD SPV
+// ==========================
+
+Route::middleware(['auth', 'role:atasan'])->group(function () {
+    Route::get('/atasan/dashboard', [\App\Http\Controllers\AtasanController::class, 'dashboard'])
+        ->name('atasan.dashboard');
+
+    Route::get('/atasan/cuti', [\App\Http\Controllers\CutiController::class, 'indexAtasan'])
+        ->name('atasan.cuti.index');
+});
+
+
+// ==========================
+// Force - Logout
+// ==========================
+
+Route::get('/force-logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/login');
+});
+
 
 // ======================================================
 // 🪪 AUTH ROUTES (Laravel Breeze)

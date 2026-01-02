@@ -13,7 +13,7 @@
                         {{ auth()->user()->name }}
                     </h2>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Staff
+                        {{ ucfirst(auth()->user()->role) }}
                     </p>
                 </div>
             </div>
@@ -30,8 +30,21 @@
 
         {{-- Greeting --}}
         <p class="text-[#4c6647] dark:text-gray-200 font-medium">
-            Selamat Siang, <span class="font-semibold">{{ strtok(auth()->user()->name, ' ') }}</span> 👋
+            Selamat Datang, <span class="font-semibold">{{ strtok(auth()->user()->name, ' ') }}</span> 👋
         </p>
+
+        @if (! $isEligibleCuti)
+        <div class="border border-yellow-300 bg-yellow-50 text-yellow-800 rounded-xl p-4">
+            <div class="font-semibold mb-1">
+                ⏳ Hak Cuti Belum Aktif
+            </div>
+            <p class="text-sm">
+                Anda belum mendapatkan hak cuti karena masa kerja belum mencapai
+                <strong>12 bulan</strong>.
+                Hak cuti akan aktif otomatis setelah memenuhi masa kerja tersebut.
+            </p>
+        </div>
+        @endif
 
         {{-- Statistik Cuti --}}
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -61,7 +74,7 @@
                 <thead class="bg-gray-100 dark:bg-[#4c6647]/80">
                     <tr>
                         <th class="px-4 py-2">Tanggal</th>
-                        <th class="px-4 py-2">Jenis</th>
+                        <!-- <th class="px-4 py-2">Jenis</th> -->
                         <th class="px-4 py-2">Status</th>
                         <th class="px-4 py-2">Aksi</th>
                     </tr>
@@ -73,20 +86,12 @@
                     @forelse ($riwayatCuti as $cuti)
                     <tr class="border-t border-gray-200 dark:border-[#9dcd5a]/30 hover:bg-[#9dcd5a]/10 transition">
                         <td class="px-4 py-2 text-gray-600 dark:text-gray-100">
-                            {{ \Carbon\Carbon::parse($cuti->tanggal_pengajuan ?? $cuti->created_at)->format('d M Y') }}
+                            {{ optional($cuti->tanggal_pengajuan)->format('d M Y') ?? $cuti->created_at->format('d M Y') }}
                         </td>
-                        <td class="px-4 py-2 text-gray-600 dark:text-gray-100">{{ $cuti->jenis }}</td>
+                        <!-- <td class="px-4 py-2 text-gray-600 dark:text-gray-100">{{ $cuti->jenis }}</td> -->
                         <td class="px-4 py-2">
-                            @php
-                            $statusColors = [
-                            'Menunggu' => 'bg-yellow-200 text-yellow-800 dark:bg-yellow-600 dark:text-yellow-100',
-                            'Disetujui' => 'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-100',
-                            'Ditolak' => 'bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-100',
-                            ];
-                            @endphp
-                            <span
-                                class="px-2 py-1 rounded-md text-xs font-semibold {{ $statusColors[$cuti->status] ?? 'bg-gray-200 text-gray-700' }}">
-                                {{ ucfirst($cuti->status) }}
+                            <span class="px-2 py-1 rounded-md text-xs font-semibold {{ $cuti->statusColor() }}">
+                                {{ $cuti->statusLabel() }}
                             </span>
                         </td>
                         <td class="px-4 py-2 text-gray-600 dark:text-gray-100">
