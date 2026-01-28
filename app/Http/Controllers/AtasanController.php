@@ -9,22 +9,25 @@ class AtasanController extends Controller
 {
     public function dashboard()
     {
-        $karyawan = Auth::user()->karyawan;
+        $user = Auth::user();
 
-        // guard aman
-        if (! $karyawan) {
-            abort(403, 'Data karyawan atasan belum tersedia.');
-        }
+        // Tentukan divisi dari NIP login atasan
+        $divisi = match ($user->nip) {
+            'SPV-PROD' => 'Produksi',
+            'SPV-KEU'  => 'Keuangan',
+            'SPV-MKT'  => 'Marketing',
+            default    => abort(403, 'Role atasan tidak valid.'),
+        };
 
         $jumlahMenunggu = Cuti::where('status', 'menunggu_atasan')
-            ->whereHas('user.karyawan', function ($q) use ($karyawan) {
-                $q->where('divisi', $karyawan->divisi);
+            ->whereHas('user.karyawan', function ($q) use ($divisi) {
+                $q->where('divisi', $divisi);
             })
             ->count();
 
         return view('atasan.dashboard', [
             'jumlahMenunggu' => $jumlahMenunggu,
-            'divisi' => $karyawan->divisi,
+            'divisi' => $divisi,
         ]);
     }
 }

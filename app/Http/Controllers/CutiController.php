@@ -110,20 +110,27 @@ class CutiController extends Controller
     // tampilkan status pengajuan cuti approval atasan dan hr
 
     public function indexAtasan()
-    {
-        $divisiAtasan = auth()->user()->karyawan->divisi;
+{
+    $user = auth()->user();
 
-        $cuti = Cuti::with(['user.karyawan'])
-            ->where('status', 'menunggu_atasan')
-            ->whereHas('user.karyawan', function ($q) use ($divisiAtasan) {
-                $q->where('divisi', $divisiAtasan);
-            })
-            ->latest()
-            ->get();
+    // Tentukan divisi atasan dari NIP login
+    $divisiAtasan = match ($user->nip) {
+        'SPV-PROD' => 'Produksi',
+        'SPV-KEU'  => 'Keuangan',
+        'SPV-MKT'  => 'Marketing',
+        default    => abort(403, 'Role atasan tidak valid.'),
+    };
 
-        return view('atasan.cuti.index', compact('cuti'));
-    }
+    $cuti = Cuti::with(['user.karyawan'])
+        ->where('status', 'menunggu_atasan')
+        ->whereHas('user.karyawan', function ($q) use ($divisiAtasan) {
+            $q->where('divisi', $divisiAtasan);
+        })
+        ->latest()
+        ->get();
 
+    return view('atasan.cuti.index', compact('cuti'));
+}
 
     // Melihat status pengajuan 
 

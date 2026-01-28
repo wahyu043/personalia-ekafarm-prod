@@ -22,7 +22,7 @@
                 @foreach ($cuti as $item)
                 <tr>
                     <td class="p-2 border">
-                        {{ $item->user->karyawan->nama_lengkap ?? '-' }}
+                        {{ optional($item->user->karyawan)->nama_lengkap ?? '-' }}
                     </td>
                     <td class="p-2 border">
                         {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d M') }}

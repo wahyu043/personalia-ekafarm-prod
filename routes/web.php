@@ -21,18 +21,13 @@ Route::redirect('/', '/login');
 Route::get('/dashboard', function () {
     $user = auth()->user();
 
-    if ($user?->role === 'hr') {
-        return redirect()->route('hr.dashboard');
-    }
-
-    if ($user?->role === 'staff') {
-        return redirect()->route('karyawan.dashboard');
-    }
-
-    // fallback jika belum login
-    return redirect()->route('login');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+    return match ($user?->role) {
+        'hr' => redirect()->route('hr.dashboard'),
+        'atasan' => redirect()->route('atasan.dashboard'),
+        'staff' => redirect()->route('karyawan.dashboard'),
+        default => redirect()->route('login'),
+    };
+})->middleware(['auth'])->name('dashboard');
 
 // ======================================================
 // 👤 KARYAWAN AREA
@@ -66,17 +61,6 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
 });
 
 // ==========================
-// ATASAN APPROVAL
-// ==========================
-Route::middleware(['auth', 'role:atasan'])->group(function () {
-    Route::get('/atasan/cuti', [CutiController::class, 'indexAtasan'])
-        ->name('atasan.cuti.index');
-
-    Route::post('/atasan/cuti/{id}/approve', [CutiController::class, 'approveAtasan'])
-        ->name('atasan.cuti.approve');
-});
-
-// ==========================
 // HR APPROVAL
 // ==========================
 Route::middleware(['auth', 'role:hr'])->group(function () {
@@ -89,7 +73,6 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
     Route::post('/hr/cuti/{id}/reject', [CutiController::class, 'rejectHr'])->name('hr.cuti.reject');
 });
 
-
 // ==========================
 // ROUTE DASHBOARD SPV
 // ==========================
@@ -97,9 +80,10 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
 Route::middleware(['auth', 'role:atasan'])->group(function () {
     Route::get('/atasan/dashboard', [\App\Http\Controllers\AtasanController::class, 'dashboard'])
         ->name('atasan.dashboard');
-
     Route::get('/atasan/cuti', [\App\Http\Controllers\CutiController::class, 'indexAtasan'])
         ->name('atasan.cuti.index');
+    Route::post('/atasan/cuti/{id}/approve', [CutiController::class, 'approveAtasan'])
+        ->name('atasan.cuti.approve');
 });
 
 
