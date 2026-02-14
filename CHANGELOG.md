@@ -1,5 +1,33 @@
 # 🧾 CHANGELOG — Personalia Ekafarm PROD
 
+## [v0.5.5] - 14 Februari 2026
+
+### Ditambahkan
+- Perhitungan cuti realistis menggunakan field `jumlah_hari`.
+- Otomatis menghitung jumlah hari cuti berdasarkan rentang tanggal (`tanggal_mulai` → `tanggal_selesai`).
+- Konfirmasi alur approval berlapis berjalan normal:
+  - staff → menunggu_atasan
+  - atasan → menunggu_hr
+  - hr → disetujui / ditolak
+- Statistik dashboard kini menghitung total hari cuti yang disetujui menggunakan `SUM(jumlah_hari)`.
+
+### Diubah
+- Logika pengurangan cuti dari sebelumnya menggunakan `count()` menjadi `sum('jumlah_hari')`.
+- Method `User::cutiTerpakai()` diperbarui agar menghitung total hari cuti yang benar-benar disetujui.
+- `CutiController@store` kini menyimpan nilai `jumlah_hari` hasil perhitungan.
+- Menambahkan `jumlah_hari` ke `$fillable` pada model `Cuti` untuk mengatasi masalah mass assignment.
+
+### Diperbaiki
+- Bug pengurangan cuti yang sebelumnya hanya mengurangi 1 hari per pengajuan.
+- Sinkronisasi statistik dashboard dengan alur approval.
+
+### Telah Diuji
+- Staff mengajukan cuti → Atasan approve → HR approve.
+- Sisa cuti berkurang sesuai jumlah hari.
+- Pengajuan ditolak tidak mengurangi sisa cuti.
+
+---
+
 ## [v0.5.4] — 2 Januari 2026
 
 ### 🧩 Implementasi Workflow Cuti Berlapis & Dashboard Role-Based

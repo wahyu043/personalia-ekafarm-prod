@@ -16,6 +16,7 @@ class Cuti extends Model
         'tanggal_pengajuan',
         'tanggal_mulai',
         'tanggal_selesai',
+        'jumlah_hari',
         'alasan',
         'bukti',
         'pengganti',

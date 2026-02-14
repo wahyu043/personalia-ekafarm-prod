@@ -79,17 +79,5 @@
         </li>
 
         @endif
-
-        {{-- Logout --}}
-        <li class="mt-6">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit"
-                    class="w-full text-left py-2 px-3 rounded hover:bg-red-600">
-                    🚪 Keluar
-                </button>
-            </form>
-        </li>
-
     </ul>
 </aside>

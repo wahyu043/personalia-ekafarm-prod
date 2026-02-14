@@ -73,7 +73,7 @@ class User extends Authenticatable
     {
         return $this->cuti()
             ->where('status', 'disetujui')
-            ->count();
+            ->sum('jumlah_hari');
     }
 
     /**

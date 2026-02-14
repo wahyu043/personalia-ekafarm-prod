@@ -10,39 +10,36 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $user = Auth::user();
-        $karyawan = $user->karyawan; // relasi user -> karyawan
+        $karyawan = $user->karyawan;
 
-        // 🔑 status hak cuti
-        $isEligibleCuti = false;
-        if ($karyawan) {
-            $isEligibleCuti = $karyawan->isEligibleCuti();
-        }
+        $isEligibleCuti = $karyawan
+            ? $karyawan->isEligibleCuti()
+            : false;
 
-        // default aman
-        $totalDisetujui = 0;
+        $totalDisetujui = $user->cutiTerpakai();
         $totalDitolak   = 0;
         $totalMenunggu  = 0;
-        $sisaCuti       = 0;
+        $sisaCuti       = $user->sisaCuti();
         $riwayatCuti    = collect();
 
-        if ($karyawan && $karyawan->isEligibleCuti()) {
+        if ($karyawan && $isEligibleCuti) {
 
             $totalDisetujui = Cuti::where('user_id', $user->id)
                 ->where('status', 'disetujui')
-                ->count();
+                ->sum('jumlah_hari');
 
             $totalDitolak = Cuti::where('user_id', $user->id)
                 ->where('status', 'ditolak')
                 ->count();
 
             $totalMenunggu = Cuti::where('user_id', $user->id)
-                ->where('status', 'menunggu')
+                ->whereIn('status', ['menunggu_atasan', 'menunggu_hr'])
                 ->count();
 
-            // jatah cuti tahunan
-            $jatahTahunan = 12;
-            $sisaCuti = max(0, $jatahTahunan - $totalDisetujui);
+            $jatahTahunan = $karyawan->hakCutiTahunan();
+            $sisaCuti = max(0, $karyawan->hakCutiTahunan() - $totalDisetujui);
 
             $riwayatCuti = Cuti::where('user_id', $user->id)
                 ->orderByDesc('tanggal_pengajuan')

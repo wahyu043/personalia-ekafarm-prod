@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Personalia Ekafarm') }}</title>
+    <title>{{ config('app.name', 'Personalia Agro Sukses Abadi') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -25,8 +25,8 @@
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <img src="{{ asset('images/ekafarm-logo-clr-bg.png') }}" alt="Logo Ekafarm" class="h-8 w-auto">
-                <h1 class="text-lg text-white font-semibold">Personalia Ekafarm</h1>
+                <img src="{{ asset('images/logo-cv-ASA-white.png') }}" alt="Logo Agro Sukses Abadi" class="h-8 w-auto">
+                <h1 class="text-lg text-white font-semibold">Personalia Agro Sukses Abadi</h1>
             </div>
 
             {{-- Right: User & Darkmode --}}

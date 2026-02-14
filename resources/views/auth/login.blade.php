@@ -22,7 +22,7 @@
         {{-- LEFT COLUMN --}}
         <div class="w-full md:w-1/2 bg-[#f8f8ee]/80 dark:bg-[#1a1a1a]/90 flex flex-col justify-center items-center 
                 text-center px-8 py-12">
-            <img src="{{ asset('images/ekafarm-logo-clr-bg.png') }}" alt="Logo Ekafarm" class="h-20 md:h-24 mb-6 drop-shadow-sm">
+            <img src="{{ asset('images/logo-ASA.png') }}" alt="Logo Ekafarm" class="h-20 md:h-24 mb-6 drop-shadow-sm">
             <h2 class="text-2xl font-bold mb-2">Selamat Datang di Sistem Personalia</h2>
             <p class="text-gray-600 dark:text-gray-300 text-sm mb-1">Digitalisasi Manajemen SDM</p>
             <p class="text-[#4c6647] font-semibold">CV. Agro Sukses Abadi</p>
@@ -35,9 +35,9 @@
             <form method="POST" action="{{ route('login') }}" class="space-y-5">
                 @csrf
 
-                {{-- Email --}}
+                {{-- NIP --}}
                 <div>
-                    <label for="email" class="block text-sm font-medium mb-1">Nomor Induk Pegawai</label>
+                    <label for="nip" class="block text-sm font-medium mb-1">Nomor Induk Pegawai</label>
                     <input id="nip" name="nip" type="text" required autofocus placeholder="NIP"
                         class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-[#6da54e] focus:border-[#6da54e] 
                            dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">

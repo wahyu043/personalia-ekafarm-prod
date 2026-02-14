@@ -77,7 +77,7 @@ class CutiController extends Controller
             'tanggal_pengajuan' => now(),
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
-            // 'jumlah_hari' => $jumlahHari,
+            'jumlah_hari' => $jumlahHari,
             'alasan' => $request->alasan,
             'bukti' => $buktiPath,
             'pengganti' => $request->pengganti,
@@ -110,27 +110,27 @@ class CutiController extends Controller
     // tampilkan status pengajuan cuti approval atasan dan hr
 
     public function indexAtasan()
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    // Tentukan divisi atasan dari NIP login
-    $divisiAtasan = match ($user->nip) {
-        'SPV-PROD' => 'Produksi',
-        'SPV-KEU'  => 'Keuangan',
-        'SPV-MKT'  => 'Marketing',
-        default    => abort(403, 'Role atasan tidak valid.'),
-    };
+        // Tentukan divisi atasan dari NIP login
+        $divisiAtasan = match ($user->nip) {
+            'SPV-PROD' => 'Produksi',
+            'SPV-KEU'  => 'Keuangan',
+            'SPV-MKT'  => 'Marketing',
+            default    => abort(403, 'Role atasan tidak valid.'),
+        };
 
-    $cuti = Cuti::with(['user.karyawan'])
-        ->where('status', 'menunggu_atasan')
-        ->whereHas('user.karyawan', function ($q) use ($divisiAtasan) {
-            $q->where('divisi', $divisiAtasan);
-        })
-        ->latest()
-        ->get();
+        $cuti = Cuti::with(['user.karyawan'])
+            ->where('status', 'menunggu_atasan')
+            ->whereHas('user.karyawan', function ($q) use ($divisiAtasan) {
+                $q->where('divisi', $divisiAtasan);
+            })
+            ->latest()
+            ->get();
 
-    return view('atasan.cuti.index', compact('cuti'));
-}
+        return view('atasan.cuti.index', compact('cuti'));
+    }
 
     // Melihat status pengajuan 
 
