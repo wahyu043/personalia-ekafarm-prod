@@ -53,8 +53,11 @@ Route::middleware(['auth', 'role:hr'])->group(function () {
     Route::get('/hr/dashboard', [HRDashboardController::class, 'index'])
         ->name('hr.dashboard');
     Route::get('/hr/cuti', [CutiController::class, 'indexHr'])->name('hr.cuti.index');
-    Route::post('/hr/cuti/{id}/status', [CutiController::class, 'updateStatus'])->name('hr.cuti.updateStatus');
-    Route::resource('hr/karyawan', KaryawanController::class)->names('hr.karyawan');
+    Route::post('/hr/cuti/{id}/status', [CutiController::class, 'updateStatus'])
+        ->name('hr.cuti.updateStatus');
+    Route::resource('hr/karyawan', KaryawanController::class)
+        ->names('hr.karyawan')
+        ->parameters(['karyawan' => 'karyawan_id']);
     Route::post('/hr/karyawan/{id}/reset-password', [KaryawanController::class, 'resetPassword'])
         ->name('hr.karyawan.resetPassword');
     Route::get('/hr/cuti/{cuti}/pdf', [CutiPdfController::class, 'export'])->name('hr.cuti.pdf');

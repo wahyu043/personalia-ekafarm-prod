@@ -49,5 +49,11 @@ class Karyawan extends Model
         return $this->isEligibleCuti() ? 12 : 0;
     }
 
-    
+    /**
+     * Relasi ke User via NIP
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(User::class, 'nip', 'nip');
+    }
 }
