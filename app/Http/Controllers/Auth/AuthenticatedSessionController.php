@@ -43,8 +43,8 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         return match ($user->role) {
-            'hr'     => redirect()->route('hr.cuti.index'),
-            'atasan' => redirect()->route('atasan.cuti.index'),
+            'hr'     => redirect()->route('hr.dashboard'),
+            'atasan' => redirect()->route('atasan.dashboard'),
             default  => redirect()->route('karyawan.dashboard'),
         };
     }
