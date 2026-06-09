@@ -52,11 +52,11 @@ class CutiController extends Controller
             'pengganti' => 'nullable|string',
         ]);
 
-        // hitung jumlah hari cuti
-        $jumlahHari = \Carbon\Carbon::parse($request->tanggal_mulai)
-            ->diffInDays(
-                \Carbon\Carbon::parse($request->tanggal_selesai)
-            ) + 1;
+        // hitung jumlah hari kerja (exclude sabtu, minggu, libur nasional)
+        $jumlahHari = \App\Models\Karyawan::hitungHariKerja(
+            $request->tanggal_mulai,
+            $request->tanggal_selesai
+        );
 
         // Validasi sisa cuti
         if (auth()->user()->sisaCuti() < $jumlahHari) {
