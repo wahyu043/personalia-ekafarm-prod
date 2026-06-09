@@ -98,4 +98,59 @@
                 @endif
             </div>
         </div>
+        {{-- Section Cuti Disetujui --}}
+        <div class="mt-8">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3">Cuti Disetujui</h2>
+
+            @if($cutiDisetujui->isEmpty())
+            <div class="rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-500">
+                Belum ada cuti yang disetujui.
+            </div>
+            @else
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase">Nama</th>
+                            <th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase">NIP</th>
+                            <th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase">Divisi</th>
+                            <th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase">Periode</th>
+                            <th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase">Alasan</th>
+                            <th class="p-3 text-center text-xs font-semibold text-gray-600 uppercase">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        @foreach($cutiDisetujui as $item)
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3 text-sm text-gray-800">
+                                {{ $item->user->karyawan->nama_lengkap ?? $item->user->name }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-600">
+                                {{ $item->user->nip ?? '-' }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-600">
+                                {{ $item->user->karyawan->divisi ?? '-' }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-600">
+                                {{ \Carbon\Carbon::parse($item->tanggal_mulai)->format('d M') }}
+                                -
+                                {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-600">
+                                {{ \Illuminate\Support\Str::limit($item->alasan, 40) }}
+                            </td>
+                            <td class="p-3 text-center">
+                                <a href="{{ route('hr.cuti.pdf', $item->id) }}"
+                                    target="_blank"
+                                    class="px-3 py-1.5 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700">
+                                    🖨️ Cetak PDF
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
+        </div>
 </x-app-layout>

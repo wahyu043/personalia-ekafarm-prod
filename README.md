@@ -62,7 +62,7 @@ php artisan key:generate
 Edit bagian database sesuai konfigurasi lokal kamu:
 
 ```env
-DB_DATABASE=personalia_ekafarm
+DB_DATABASE=db_name
 DB_USERNAME=root
 DB_PASSWORD=
 ```

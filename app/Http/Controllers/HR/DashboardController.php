@@ -12,9 +12,9 @@ class DashboardController extends Controller
     public function index()
     {
         $summary = [
-            'total_karyawan' => User::where('role', 'karyawan')->count(),
+            'total_karyawan' => User::where('role', 'staff')->count(),
             'total_cuti' => Cuti::count(),
-            'menunggu' => Cuti::where('status', 'menunggu')->count(),
+            'menunggu' => Cuti::where('status', 'menunggu_hr')->count(),
             'disetujui' => Cuti::where('status', 'disetujui')->count(),
             'ditolak' => Cuti::where('status', 'ditolak')->count(),
         ];

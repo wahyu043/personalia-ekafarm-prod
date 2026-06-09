@@ -80,21 +80,21 @@
                             <td class="border border-gray-300 dark:border-[#9dcd5a]/40 p-2 
                        text-sm text-gray-700 dark:text-gray-200 
                        bg-white dark:bg-[#4c6647]/60 transition-colors text-center last:border-r-0">
-                                @if ($cuti->status == 'menunggu')
+                                @if (in_array($cuti->status, ['menunggu_atasan', 'menunggu_hr']))
                                 <span class="px-2 py-1 text-xs font-semibold rounded-md 
-                                 bg-yellow-100 text-yellow-800 
-                                 dark:bg-yellow-500/20 dark:text-yellow-300 
-                                 border border-yellow-400/50 dark:border-yellow-300/30">Menunggu</span>
+                        bg-yellow-100 text-yellow-800 
+                        dark:bg-yellow-500/20 dark:text-yellow-300 
+                        border border-yellow-400/50 dark:border-yellow-300/30">Menunggu</span>
                                 @elseif ($cuti->status == 'disetujui')
                                 <span class="px-2 py-1 text-xs font-semibold rounded-md 
-                                 bg-green-100 text-green-800 
-                                 dark:bg-green-500/20 dark:text-green-300 
-                                 border border-green-400/50 dark:border-green-300/30">Disetujui</span>
+                        bg-green-100 text-green-800 
+                        dark:bg-green-500/20 dark:text-green-300 
+                        border border-green-400/50 dark:border-green-300/30">Disetujui</span>
                                 @else
                                 <span class="px-2 py-1 text-xs font-semibold rounded-md 
-                                 bg-red-100 text-red-700 
-                                 dark:bg-red-500/20 dark:text-red-300 
-                                 border border-red-400/50 dark:border-red-300/30">Ditolak</span>
+                        bg-red-100 text-red-700 
+                        dark:bg-red-500/20 dark:text-red-300 
+                        border border-red-400/50 dark:border-red-300/30">Ditolak</span>
                                 @endif
                             </td>
                         </tr>
