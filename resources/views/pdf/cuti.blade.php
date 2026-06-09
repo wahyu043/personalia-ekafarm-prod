@@ -93,17 +93,33 @@
 
 <body>
 
-    <div style="text-align:center; margin-bottom:10px;">
-        <h2 style="font-size:16px;">FORMULIR PERMOHONAN CUTI</h2>
-        <p><strong>CV. AGRO SUKSES ABADI (EKAFARM)</strong></p>
-        <hr>
-    </div>
-
     @php
     use Carbon\Carbon;
     Carbon::setLocale('id');
     $today = Carbon::now()->translatedFormat('d F Y');
     @endphp
+
+    <div style="text-align:center; margin-bottom:6px;">
+        <p style="margin:0; font-size:14px; font-weight:bold;">CV. AGRO SUKSES ABADI (EKAFARM)</p>
+        <p style="margin:2px 0; font-size:10px;">Gg. Mawar No.55, Ngoto, Bangunharjo, Kec. Sewon, Kabupaten Bantul, D.I. Yogyakarta 55188</p>
+        <p style="margin:2px 0; font-size:10px;">Telp: (0274) 4293496</p>
+    </div>
+    <hr style="border:1.5px solid #000; margin:6px 0;">
+    <h2 style="text-align:center; font-size:14px; margin:4px 0;">FORMULIR PERMOHONAN CUTI</h2>
+    <hr style="border:0.5px solid #666; margin:6px 0;">
+
+    <table style="width:100%; margin-bottom:10px;">
+        <tr>
+            <td style="width:32%; font-size:11px;">No. Surat</td>
+            <td style="font-size:11px;">: -</td>
+        </tr>
+        <tr>
+            <td style="width:32%; font-size:11px;">Tanggal Surat</td>
+            <td style="font-size:11px;">: {{ $today }}</td>
+        </tr>
+    </table>
+    <hr style="border:0.5px solid #666; margin:6px 0;">
+
 
     <table>
         <tr>
