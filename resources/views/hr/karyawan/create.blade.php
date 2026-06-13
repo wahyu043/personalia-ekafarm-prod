@@ -58,11 +58,15 @@
                 <p class="text-xs text-gray-400 dark:text-gray-300 italic">Data akun login — email & password di-generate otomatis</p>
 
                 <div>
-                    <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-100">Role</label>
+                    <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-100">Akses Level</label>
+                    <p class="text-xs text-gray-400 dark:text-gray-300 italic mb-2">
+                        ⚠️ Default "Staff" untuk karyawan baru. Pilih "Atasan"/"HR" hanya jika benar-benar
+                        diperlukan akun jabatan baru — biasanya posisi Atasan sudah ditangani akun SPV yang ada.
+                    </p>
                     <select name="role"
                         class="w-full rounded-md border border-gray-300 dark:border-[#9dcd5a]/40
-                    bg-white dark:bg-[#4c6647]/40 text-gray-800 dark:text-gray-100
-                    px-4 py-2 focus:ring-2 focus:ring-[#9dcd5a]/40 focus:outline-none transition">
+    bg-white dark:bg-[#4c6647]/40 text-gray-800 dark:text-gray-100
+    px-4 py-2 focus:ring-2 focus:ring-[#9dcd5a]/40 focus:outline-none transition">
                         <option value="staff">Staff</option>
                         <option value="atasan">Atasan</option>
                         <option value="hr">HR</option>

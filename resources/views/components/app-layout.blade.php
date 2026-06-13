@@ -8,6 +8,7 @@
     <title>{{ isset($title) ? $title . ' | ' . config('app.name', 'Personalia ASA') : config('app.name', 'Personalia Agro Sukses Abadi') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-cv-asa-square.png') }}">
 </head>
 
 <body class="font-[Nunito] bg-[#f8f8ee] text-[#4c6647] dark:bg-[#1a1a1a] dark:text-gray-200 transition-colors duration-300 min-h-screen flex flex-col">
@@ -52,20 +53,6 @@
 
         {{-- MAIN CONTENT --}}
         <main class="flex-1 p-6 md:ml-0">
-
-            <!-- {{-- FLASH MESSAGE --}}
-            @if (session('success'))
-            <div class="mb-4 rounded-lg bg-green-100 px-4 py-3 text-green-800">
-                {{ session('success') }}
-            </div>
-            @endif
-
-            @if (session('error'))
-            <div class="mb-4 rounded-lg bg-red-100 px-4 py-3 text-red-800">
-                {{ session('error') }}
-            </div>
-            @endif -->
-
             {{-- Page Content --}}
             <div class="bg-white shadow-sm rounded-xl p-6 transition-colors duration-200
               dark-panel">
@@ -78,6 +65,30 @@
     <footer class="bg-[#4c6647] dark:bg-gray-900 text-white text-center text-sm py-2 mt-auto">
         <p>© {{ date('Y') }} CV. Agro Sukses Abadi. Semua Hak Dilindungi.</p>
     </footer>
+
+    {{-- FLASH MESSAGE TOAST --}}
+    @if (session('success') || session('error'))
+    <div id="toast"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-sm font-medium transition-all duration-500
+    {{ session('success') ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' }}">
+        <span>
+            {{ session('success') ? '✅' : '❌' }}
+        </span>
+        <span>{{ session('success') ?? session('error') }}</span>
+        <button onclick="document.getElementById('toast').remove()" class="ml-2 text-lg leading-none opacity-50 hover:opacity-100">&times;</button>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 500);
+            }
+        }, 3000);
+    </script>
+    @endif
 
     {{-- SCRIPT --}}
     <script>

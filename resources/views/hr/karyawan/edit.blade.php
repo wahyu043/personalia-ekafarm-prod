@@ -65,17 +65,6 @@
                     px-4 py-2 focus:ring-2 focus:ring-[#9dcd5a]/40 focus:outline-none transition" required>
                 </div>
 
-                <div>
-                    <label class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-100">Role</label>
-                    <select name="role"
-                        class="w-full rounded-md border border-gray-300 dark:border-[#9dcd5a]/40
-                    bg-white dark:bg-[#4c6647]/40 text-gray-800 dark:text-gray-100
-                    px-4 py-2 focus:ring-2 focus:ring-[#9dcd5a]/40 focus:outline-none transition">
-                        <option value="staff" @selected($user->role == 'staff')>Staff</option>
-                        <option value="atasan" @selected($user->role == 'atasan')>Atasan</option>
-                        <option value="hr" @selected($user->role == 'hr')>HR</option>
-                    </select>
-                </div>
                 @endif
 
                 <div class="flex justify-end gap-3 pt-4">

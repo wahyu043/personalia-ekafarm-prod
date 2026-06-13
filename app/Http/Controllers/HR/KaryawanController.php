@@ -84,7 +84,6 @@ class KaryawanController extends Controller
         if ($user) {
             $userValidated = $request->validate([
                 'email' => 'required|email|unique:users,email,' . $user->id,
-                'role'  => 'required|in:staff,atasan,hr',
             ]);
             $user->update($userValidated);
         }

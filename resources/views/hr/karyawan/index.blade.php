@@ -23,7 +23,6 @@
                         <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 dark:text-gray-100 bg-[#f8f8ee] dark:bg-[#4c6647]/80 border border-black/70 dark:border-white/80">Nama Lengkap</th>
                         <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 dark:text-gray-100 bg-[#f8f8ee] dark:bg-[#4c6647]/80 border border-black/70 dark:border-white/80">Jabatan</th>
                         <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 dark:text-gray-100 bg-[#f8f8ee] dark:bg-[#4c6647]/80 border border-black/70 dark:border-white/80">Divisi</th>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 dark:text-gray-100 bg-[#f8f8ee] dark:bg-[#4c6647]/80 border border-black/70 dark:border-white/80">Role</th>
                         <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 dark:text-gray-100 bg-[#f8f8ee] dark:bg-[#4c6647]/80 border border-black/70 dark:border-white/80">Aksi</th>
                     </tr>
                 </thead>
@@ -44,9 +43,6 @@
                         </td>
                         <td class="border border-black/70 dark:border-[#9dcd5a]/40 p-2 text-sm text-center text-gray-700 dark:text-gray-200 bg-white dark:bg-[#4c6647]/60">
                             {{ $item->divisi ?? '-' }}
-                        </td>
-                        <td class="border border-black/70 dark:border-[#9dcd5a]/40 p-2 text-sm text-center text-gray-700 dark:text-gray-200 bg-white dark:bg-[#4c6647]/60 capitalize">
-                            {{ $item->user->role ?? '-' }}
                         </td>
                         <td class="border border-black/70 dark:border-[#9dcd5a]/40 p-2 text-sm text-center text-gray-700 dark:text-gray-200 bg-white dark:bg-[#4c6647]/60">
                             <!-- Edit -->
