@@ -9,10 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="font-[Nunito] bg-[#f8f8ee] text-[#4c6647] dark:bg-[#1a1a1a] dark:text-gray-200 transition-colors duration-300 flex flex-col min-h-screen">
+<body class="font-[Nunito] bg-[#f8f8ee] text-[#4c6647] transition-colors duration-300 flex flex-col min-h-screen">
 
     {{-- HEADER --}}
-    <header class="bg-[#4c6647] dark:bg-[#0f172a] text-white shadow-md">
+    <header class="bg-[#4c6647] text-white shadow-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
             {{-- Left --}}
             <div class="flex items-center gap-3">
@@ -33,9 +33,9 @@
     {{-- MAIN CONTENT --}}
     <main class="flex-1">
         {{-- Hero --}}
-        <section class="text-center py-12 px-6 bg-white/80 dark:bg-[#0f172a] shadow-sm max-w-3xl mx-auto mt-8 rounded-xl">
+        <section class="text-center py-12 px-6 bg-white/80 shadow-sm max-w-3xl mx-auto mt-8 rounded-xl">
             <h2 class="text-2xl font-bold mb-3">Selamat Datang di Sistem Personalia</h2>
-            <p class="text-gray-600 dark:text-gray-300">
+            <p class="text-gray-600">
                 Digitalisasi Manajemen SDM CV. Agro Sukses Abadi
             </p>
         </section>
@@ -67,8 +67,8 @@
         </section>
 
         {{-- Cuti Hari Ini --}}
-        <section class="max-w-xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm mb-16">
-            <h3 class="text-xl font-semibold mb-4 text-[#4c6647] dark:text-[#9dcd5a]">
+        <section class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-sm mb-16">
+            <h3 class="text-xl font-semibold mb-4 text-[#4c6647]">
                 Karyawan yang Sedang Cuti Hari Ini
             </h3>
             @if($cutiHariIni->isEmpty())
@@ -87,7 +87,7 @@
     </main>
 
     {{-- FOOTER --}}
-    <footer class="bg-[#4c6647] dark:bg-gray-900 text-white text-center py-4 mt-auto shadow-inner">
+    <footer class="bg-[#4c6647] text-white text-center py-4 mt-auto shadow-inner">
         <p class="text-sm">© {{ date('Y') }} CV. Agro Sukses Abadi. Semua Hak Dilindungi.</p>
     </footer>
 

@@ -21,16 +21,16 @@
               w-11/12 sm:w-10/12 md:w-3/4 lg:w-2/3 xl:w-1/2 max-w-5xl">
 
         {{-- LEFT COLUMN --}}
-        <div class="w-full md:w-1/2 bg-[#f8f8ee]/80 dark:bg-[#1a1a1a]/90 flex flex-col justify-center items-center 
-                text-center px-8 py-12">
-            <img src="{{ asset('images/logo-ASA.png') }}" alt="Logo Ekafarm" class="h-20 md:h-24 mb-6 drop-shadow-sm">
+        <div class="w-full md:w-1/2 bg-[#f8f8ee]/80 flex flex-col justify-center items-center 
+        text-center px-8 py-12">
+            <img src="{{ asset('images/logo-cv-asa-square.png') }}" alt="Logo Agro Sukses Abadi" class="h-20 md:h-24 mb-6 drop-shadow-sm">
             <h2 class="text-2xl font-bold mb-2">Selamat Datang di Sistem Personalia</h2>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mb-1">Digitalisasi Manajemen SDM</p>
+            <p class="text-gray-600 text-sm mb-1">Digitalisasi Manajemen SDM</p>
             <p class="text-[#4c6647] font-semibold">CV. Agro Sukses Abadi</p>
         </div>
 
         {{-- RIGHT COLUMN --}}
-        <div class="w-full md:w-1/2 bg-white dark:bg-[#0f172a] flex flex-col justify-center p-8 md:p-10">
+        <div class="w-full md:w-1/2 bg-white flex flex-col justify-center p-8 md:p-10">
             <h3 class="text-xl font-semibold text-center mb-6">Login ke Akun Anda</h3>
 
             <form method="POST" action="{{ route('login') }}" class="space-y-5">
@@ -40,16 +40,14 @@
                 <div>
                     <label for="nip" class="block text-sm font-medium mb-1">Nomor Induk Pegawai</label>
                     <input id="nip" name="nip" type="text" required autofocus placeholder="NIP"
-                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-[#6da54e] focus:border-[#6da54e] 
-                           dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
+                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-[#6da54e] focus:border-[#6da54e]">
                 </div>
 
                 {{-- Password --}}
                 <div>
                     <label for="password" class="block text-sm font-medium mb-1">Kata Sandi</label>
                     <input id="password" type="password" name="password" required placeholder="Password"
-                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-[#6da54e] focus:border-[#6da54e]
-                           dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
+                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-[#6da54e] focus:border-[#6da54e]">
                 </div>
 
                 {{-- Remember Me + Forgot Password --}}

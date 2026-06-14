@@ -10,6 +10,6 @@ $sizes = [
 $initial = strtoupper(substr($name, 0, 1));
 @endphp
 
-<div class="flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold {{ $sizes[$size] ?? $sizes['md'] }}">
+<div class="flex items-center justify-center rounded-full bg-gray-200 text-gray-700 font-semibold {{ $sizes[$size] ?? $sizes['md'] }}">
     {{ $initial }}
 </div>

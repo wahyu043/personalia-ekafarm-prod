@@ -3,7 +3,6 @@
    ------------------------------------------------------------------------
    ✅ Warna & font brand Ekafarm
    ✅ Komponen dasar (button, card, badge)
-   ✅ Utilities tone baru (dark-mode fine-tune)
    ======================================================================== */
 
 /* === Base Layer ========================================================= */
@@ -11,119 +10,64 @@
     html {
         font-family: 'Nunito', system-ui, sans-serif;
         background-color: #f8f8ee;
-        /* background lembut */
         color: #1f2937;
-        /* teks abu tua */
     }
 
-    @media (prefers-color-scheme: dark) {
-        html {
-            background-color: #111827;
-            color: #e5e7eb;
-        }
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @apply font-semibold text-gray-900 dark:text-gray-100;
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-semibold text-gray-900;
     }
 
     a {
-        @apply text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors;
+        @apply text-emerald-600 hover:text-emerald-700 transition-colors;
     }
 }
 
 /* === Components Layer ==================================================== */
 @layer components {
 
-    /* Tombol utama */
     .btn-primary {
-        @apply inline-block px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 transition;
+        @apply inline-block px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition;
     }
 
-    /* Kartu / panel */
     .card {
-        @apply bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm;
+        @apply bg-white border border-gray-200 rounded-xl shadow-sm;
     }
 
-    /* Badge status */
     .badge {
         @apply px-2 py-1 text-xs font-medium rounded-lg;
     }
 
     .badge-success {
-        @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300;
+        @apply bg-emerald-100 text-emerald-700;
     }
 
     .badge-warning {
-        @apply bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300;
+        @apply bg-yellow-100 text-yellow-700;
     }
 
     .badge-danger {
-        @apply bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300;
+        @apply bg-red-100 text-red-700;
     }
 }
 
 /* === Utilities Layer ===================================================== */
 @layer utilities {
 
-    /* Palet warna brand */
-    .text-brand-dark {
-        color: #4c6647;
-    }
+    .text-brand-dark  { color: #4c6647; }
+    .text-brand-leaf  { color: #6da54e; }
+    .text-brand-light { color: #9dcd5a; }
+    .text-brand-yellow{ color: #e1d454; }
 
-    .text-brand-leaf {
-        color: #6da54e;
-    }
+    .bg-brand-dark  { background-color: #4c6647; }
+    .bg-brand-leaf  { background-color: #6da54e; }
+    .bg-brand-light { background-color: #9dcd5a; }
+    .bg-brand-yellow{ background-color: #e1d454; }
 
-    .text-brand-light {
-        color: #9dcd5a;
-    }
+    .border-brand-dark  { border-color: #4c6647; }
+    .border-brand-leaf  { border-color: #6da54e; }
+    .border-brand-light { border-color: #9dcd5a; }
+    .border-brand-yellow{ border-color: #e1d454; }
 
-    .text-brand-yellow {
-        color: #e1d454;
-    }
-
-    .bg-brand-dark {
-        background-color: #4c6647;
-    }
-
-    .bg-brand-leaf {
-        background-color: #6da54e;
-    }
-
-    .bg-brand-light {
-        background-color: #9dcd5a;
-    }
-
-    .bg-brand-yellow {
-        background-color: #e1d454;
-    }
-
-    .border-brand-dark {
-        border-color: #4c6647;
-    }
-
-    .border-brand-leaf {
-        border-color: #6da54e;
-    }
-
-    .border-brand-light {
-        border-color: #9dcd5a;
-    }
-
-    .border-brand-yellow {
-        border-color: #e1d454;
-    }
-
-    /* Sidebar fix */
-    /* ===== Sidebar Adaptive — Ekafarm x Breeze ===== */
-
-    /* 🌤️ Light mode */
     .sidebar {
         background-color: #6da54e !important;
         color: #ffffff !important;
@@ -134,125 +78,64 @@
         color: #ffffff !important;
         fill: #ffffff !important;
     }
-
-    /* 🌙 Dark mode (ikuti Breeze background) */
-    @media (prefers-color-scheme: dark) {
-        .sidebar {
-            background-color: rgb(31 41 55) !important;
-            /* sedikit lebih terang dari konten */
-            color: #f8fafc !important;
-            /* putih lembut */
-        }
-
-        .sidebar a,
-        .sidebar * {
-            color: #f8fafc !important;
-            fill: #f8fafc !important;
-        }
-
-        .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.1) !important;
-        }
-    }
-
-    /* ===== Panel / Card Tone Harmonization (Dark Mode) ===== */
-    @media (prefers-color-scheme: dark) {
-
-        .card,
-        .panel {
-            background-color: #1f2937 !important;
-            /* sedikit lebih terang dari sidebar */
-            border-color: #334155 !important;
-            /* halus, kontras ringan */
-            color: #f1f5f9 !important;
-            /* teks lembut */
-        }
-
-        .card-header,
-        .panel-header {
-            background-color: #243145 !important;
-            /* 1 tingkat lebih terang untuk header */
-            border-bottom: 1px solid #334155 !important;
-        }
-
-        .card-body,
-        .panel-body {
-            background-color: #1f2937 !important;
-        }
-
-        .card-footer,
-        .panel-footer {
-            border-top: 1px solid #334155 !important;
-            background-color: #1e293b !important;
-        }
-    }
-
 }
 
 /* ==========================================================
-   🌿 Ekafarm Global Table Style — Refined v0.4.6
+   🌿 Ekafarm Global Table Style
    ========================================================== */
 
-/* === TABLE WRAPPER === */
 .table-wrapper {
-    @apply overflow-x-auto rounded-xl shadow-sm bg-white dark:bg-[#4c6647]/50 transition-colors duration-300;
+    @apply overflow-x-auto rounded-xl shadow-sm bg-white transition-colors duration-300;
 }
 
-/* === TABLE BASE === */
 table {
     @apply w-full border-collapse rounded-xl overflow-hidden text-sm;
 }
 
-/* === TABLE HEADER === */
 thead tr {
-    @apply bg-[#4c6647] dark:bg-[#3a4f33];
+    @apply bg-[#4c6647];
 }
 
 thead th {
     @apply px-4 py-3 text-center text-xs font-semibold tracking-wide uppercase text-white border-b border-[#9dcd5a]/30;
 }
 
-/* === TABLE BODY === */
 tbody tr {
     @apply border-b border-[#9dcd5a]/20 transition-colors duration-200;
 }
 
 tbody td {
-    @apply text-[#4c6647] dark:text-gray-200 dark:font-medium;
+    @apply text-[#4c6647];
 }
 
-/* === HOVER EFFECT === */
 tbody tr:hover {
-    @apply bg-[#9dcd5a]/10 dark:bg-[#9dcd5a]/20;
+    @apply bg-[#9dcd5a]/10;
 }
 
-/* === STATUS BADGE === */
 .status-badge {
     @apply px-2 py-1 text-xs font-semibold rounded-md border transition-colors;
 }
 
 .status-badge.menunggu {
-    @apply bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-500/20 dark:text-yellow-200 dark:border-yellow-300/30;
+    @apply bg-yellow-100 text-yellow-800 border-yellow-300;
 }
 
 .status-badge.disetujui {
-    @apply bg-green-100 text-green-800 border-green-400/60 dark:bg-green-500/20 dark:text-green-200 dark:border-green-300/30;
+    @apply bg-green-100 text-green-800 border-green-400/60;
 }
 
 .status-badge.ditolak {
-    @apply bg-red-100 text-red-700 border-red-400/60 dark:bg-red-500/20 dark:text-red-300 dark:border-red-300/30;
+    @apply bg-red-100 text-red-700 border-red-400/60;
 }
 
-/* === SELECT DROPDOWN === */
 .table-select {
-    @apply rounded-md border border-gray-300 dark:border-[#9dcd5a]/40 bg-white dark:bg-[#4c6647]/40 text-gray-700 dark:text-gray-100 text-sm px-3 py-1 pr-6 appearance-none focus:ring-0 focus:outline-none;
+    @apply rounded-md border border-gray-300 bg-white text-gray-700 text-sm px-3 py-1 pr-6 appearance-none focus:ring-0 focus:outline-none;
     background-image: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%23a1a1aa' stroke-width='1.5' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M8.25 9.75L12 13.5l3.75-3.75'/></svg>");
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
     background-size: 1em 1em;
 }
 
-/* === RESPONSIVE === */
 @media (max-width: 768px) {
     thead {
         @apply hidden;
@@ -267,7 +150,7 @@ tbody tr:hover {
     }
 
     tbody td::before {
-        @apply font-semibold text-gray-500 dark:text-gray-300;
+        @apply font-semibold text-gray-500;
         content: attr(data-label);
     }
 }

@@ -1,6 +1,6 @@
 <aside id="sidebar"
     class="sidebar fixed md:static z-30 inset-y-0 left-0 w-64 transform -translate-x-full md:translate-x-0 transition-transform duration-200
-           bg-[#6da54e] dark:bg-[#0f172a] text-white min-h-screen py-6 px-4">
+           bg-[#6da54e] text-white min-h-screen py-6 px-4">
 
     <ul class="space-y-2 text-sm">
 

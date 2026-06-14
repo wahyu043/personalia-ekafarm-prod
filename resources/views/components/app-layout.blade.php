@@ -11,15 +11,14 @@
     <link rel="icon" type="image/png" href="{{ asset('images/logo-cv-asa-square.png') }}">
 </head>
 
-<body class="font-[Nunito] bg-[#f8f8ee] text-[#4c6647] dark:bg-[#1a1a1a] dark:text-gray-200 transition-colors duration-300 min-h-screen flex flex-col">
+<body class="font-[Nunito] bg-[#f8f8ee] text-[#4c6647] transition-colors duration-300 min-h-screen flex flex-col">
 
     {{-- HEADER --}}
-    <header class="bg-[#4c6647] dark:bg-[#0f172a] text-white shadow-md">
+    <header class="bg-[#4c6647] text-white shadow-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
             {{-- Left: Logo --}}
             <div class="flex items-center gap-2">
                 <button id="mobile-toggle" class="md:hidden text-white focus:outline-none">
-                    <!-- Icon hamburger -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -30,7 +29,7 @@
                 <h1 class="text-lg text-white font-semibold">Personalia Agro Sukses Abadi</h1>
             </div>
 
-            {{-- Right: User & Darkmode --}}
+            {{-- Right: User --}}
             <nav class="flex items-center gap-4 text-sm">
                 <span>{{ Auth::user()->name ?? 'Guest' }}</span>
 
@@ -53,16 +52,14 @@
 
         {{-- MAIN CONTENT --}}
         <main class="flex-1 p-6 md:ml-0">
-            {{-- Page Content --}}
-            <div class="bg-white shadow-sm rounded-xl p-6 transition-colors duration-200
-              dark-panel">
+            <div class="bg-white shadow-sm rounded-xl p-6 transition-colors duration-200">
                 {{ $slot }}
             </div>
         </main>
     </div>
 
     {{-- FOOTER --}}
-    <footer class="bg-[#4c6647] dark:bg-gray-900 text-white text-center text-sm py-2 mt-auto">
+    <footer class="bg-[#4c6647] text-white text-center text-sm py-2 mt-auto">
         <p>© {{ date('Y') }} CV. Agro Sukses Abadi. Semua Hak Dilindungi.</p>
     </footer>
 
@@ -70,10 +67,8 @@
     @if (session('success') || session('error'))
     <div id="toast"
         class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-sm font-medium transition-all duration-500
-    {{ session('success') ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' }}">
-        <span>
-            {{ session('success') ? '✅' : '❌' }}
-        </span>
+        {{ session('success') ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' }}">
+        <span>{{ session('success') ? '✅' : '❌' }}</span>
         <span>{{ session('success') ?? session('error') }}</span>
         <button onclick="document.getElementById('toast').remove()" class="ml-2 text-lg leading-none opacity-50 hover:opacity-100">&times;</button>
     </div>
@@ -92,35 +87,15 @@
 
     {{-- SCRIPT --}}
     <script>
-        // Dark Mode Toggle
-        const html = document.documentElement;
-        const darkToggle = document.getElementById('dark-toggle');
-        const iconMoon = document.getElementById('icon-moon');
-        const iconSun = document.getElementById('icon-sun');
-        const sidebar = document.getElementById('sidebar');
-        const mobileToggle = document.getElementById('mobile-toggle');
-
-        darkToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            const darkModeActive = html.classList.contains('dark');
-            iconMoon.classList.toggle('hidden', darkModeActive);
-            iconSun.classList.toggle('hidden', !darkModeActive);
-            localStorage.setItem('theme', darkModeActive ? 'dark' : 'light');
-        });
-
-        // Persist dark mode
-        if (localStorage.getItem('theme') === 'dark') {
-            html.classList.add('dark');
-            iconMoon.classList.add('hidden');
-        } else {
-            iconSun.classList.add('hidden');
-        }
-
         // Sidebar toggle (mobile)
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const sidebar = document.getElementById('sidebar');
+
         mobileToggle.addEventListener('click', () => {
             sidebar.classList.toggle('-translate-x-full');
         });
     </script>
+
 </body>
 
 </html>
