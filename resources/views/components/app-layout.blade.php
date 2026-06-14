@@ -36,7 +36,7 @@
                 {{-- Logout --}}
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="bg-[#6da54e] hover:bg-[#4c6647] text-white font-semibold px-3 py-1 rounded-md">
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded-md">
                         Keluar
                     </button>
                 </form>

@@ -12,8 +12,12 @@
                             {{ auth()->user()->name }}
                         </h2>
                         <p class="text-sm text-gray-600">
-                            {{ ucfirst(auth()->user()->role) }}
+                            {{ auth()->user()->karyawan->jabatan ?? '-' }}
+                            @if(auth()->user()->karyawan?->divisi)
+                            — {{ auth()->user()->karyawan->divisi }}
+                            @endif
                         </p>
+
                     </div>
                 </div>
 

@@ -54,3 +54,36 @@
                                 action="{{ route('hr.karyawan.resetPassword', $item->id) }}"
                                 method="POST" class="inline-block ml-2">
                                 @csrf
+                                <x-confirm-reset
+                                    title="Konfirmasi Reset Password"
+                                    :message="'Yakin ingin mereset password akun milik ' . $item->nama_lengkap . '?'"
+                                    confirm="Ya, Reset"
+                                    cancel="Batal"
+                                    :formId="'resetForm-' . $item->id" />
+                            </form>
+
+                            <!-- Hapus -->
+                            <form id="deleteForm-{{ $item->id }}"
+                                action="{{ route('hr.karyawan.destroy', $item->id) }}"
+                                method="POST" class="inline-block ml-2">
+                                @csrf
+                                @method('DELETE')
+                                <x-confirm-delete
+                                    title="Konfirmasi Penghapusan"
+                                    :message="'Yakin ingin menghapus karyawan ' . $item->nama_lengkap . '?'"
+                                    confirm="Ya, Hapus"
+                                    cancel="Batal"
+                                    :formId="'deleteForm-' . $item->id" />
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
+
+            <div class="mt-4">
+                {{ $karyawan->links() }}
+            </div>
+        </div>
+</x-app-layout>

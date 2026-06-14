@@ -9,7 +9,7 @@
 <div x-data="{ open: false }" x-cloak class="inline-block">
     <button type="button"
         @click="open = true"
-        class="text-red-600 hover:text-red-700 font-semibold transition">
+        class="inline-block px-3 py-1 text-sm font-semibold rounded-md border border-red-400 text-red-600 bg-red-100/40 hover:bg-red-500 hover:text-white transition">
         Hapus
     </button>
 

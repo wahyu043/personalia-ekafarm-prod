@@ -16,6 +16,7 @@ class AtasanController extends Controller
             'SPV-PROD' => 'Produksi',
             'SPV-KEU'  => 'Keuangan',
             'SPV-MKT'  => 'Marketing',
+            'SPV-GUD'  => 'Gudang',
             default    => abort(403, 'Role atasan tidak valid.'),
         };
 
