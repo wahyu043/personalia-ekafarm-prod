@@ -11,7 +11,6 @@ class AtasanController extends Controller
     {
         $user = Auth::user();
 
-        // Tentukan divisi dari NIP login atasan
         $divisi = match ($user->nip) {
             'SPV-PROD' => 'Produksi',
             'SPV-KEU'  => 'Keuangan',
@@ -26,8 +25,22 @@ class AtasanController extends Controller
             })
             ->count();
 
+        $jumlahDisetujui = Cuti::where('status', 'disetujui')
+            ->whereHas('user.karyawan', function ($q) use ($divisi) {
+                $q->where('divisi', $divisi);
+            })
+            ->count();
+
+        $jumlahDitolak = Cuti::where('status', 'ditolak')
+            ->whereHas('user.karyawan', function ($q) use ($divisi) {
+                $q->where('divisi', $divisi);
+            })
+            ->count();
+
         return view('atasan.dashboard', [
             'jumlahMenunggu' => $jumlahMenunggu,
+            'jumlahDisetujui' => $jumlahDisetujui,
+            'jumlahDitolak' => $jumlahDitolak,
             'divisi' => $divisi,
         ]);
     }

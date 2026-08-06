@@ -131,7 +131,16 @@ class CutiController extends Controller
             ->latest()
             ->get();
 
-        return view('atasan.cuti.index', compact('cuti'));
+        // Histori: yang sudah diproses lanjut (disetujui/ditolak)
+        $riwayat = Cuti::with(['user.karyawan'])
+            ->whereIn('status', ['disetujui', 'ditolak'])
+            ->whereHas('user.karyawan', function ($q) use ($divisiAtasan) {
+                $q->where('divisi', $divisiAtasan);
+            })
+            ->latest()
+            ->get();
+
+        return view('atasan.cuti.index', compact('cuti', 'riwayat'));
     }
 
     // Melihat status pengajuan 

@@ -18,6 +18,18 @@
                 </p>
             </div>
 
+            {{-- Ringkasan Histori --}}
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="bg-green-50 border border-green-300 rounded-lg p-4">
+                    <p class="text-green-800 text-sm">Disetujui</p>
+                    <p class="text-2xl font-bold text-green-900 mt-1">{{ $jumlahDisetujui }}</p>
+                </div>
+                <div class="bg-red-50 border border-red-300 rounded-lg p-4">
+                    <p class="text-red-800 text-sm">Ditolak</p>
+                    <p class="text-2xl font-bold text-red-900 mt-1">{{ $jumlahDitolak }}</p>
+                </div>
+            </div>
+
             <a href="{{ route('atasan.cuti.index') }}"
                 class="inline-block px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
                 Lihat Pengajuan Cuti
