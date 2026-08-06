@@ -36,9 +36,7 @@ class CutiController extends Controller
         // belum 12 bulan → tolak sistem
         if (! $karyawan->isEligibleCuti()) {
 
-            return back()->withErrors([
-                'cuti' => 'Hak cuti aktif setelah minimal 12 bulan masa kerja.'
-            ]);
+            return back()->with('error', 'Hak cuti aktif setelah minimal 12 bulan masa kerja.');
         }
 
         // ===============================
@@ -60,9 +58,7 @@ class CutiController extends Controller
 
         // Validasi sisa cuti
         if (auth()->user()->sisaCuti() < $jumlahHari) {
-            return back()->withErrors([
-                'cuti' => 'Sisa cuti Anda tidak mencukupi.'
-            ]);
+            return back()->with('error', 'Sisa cuti Anda tidak mencukupi.');
         }
 
         // upload bukti (jika ada)
