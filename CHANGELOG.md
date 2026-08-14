@@ -33,6 +33,7 @@
 - Tombol cetak PDF surat cuti.
 - Section cuti disetujui di halaman manajemen cuti HR.
 - Kop surat, alamat, nomor telepon, dan nomor surat otomatis di template PDF cuti.
+- Judul halaman dinamis & redirect dashboard otomatis sesuai role setelah login.
 
 ---
 
